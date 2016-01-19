@@ -2,6 +2,7 @@
 
 // set up ======================================================================
 // get all the tools we need
+var serverConfig = require("./serverFiles/config");
 var express  = require('express');
 var app      = express();
 var port     = process.env.PORT || serverConfig.port;
@@ -9,7 +10,6 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
 var path = require("path");
-var serverConfig = require("./serverFiles/config.js");
 
 var inter = require("./app/interceptor");
 
