@@ -161,13 +161,13 @@ module.exports = function(passport) {
           console.log(verLink);
           
           transport.sendMail({
-             text:    vrfEmailFormat, 
+             text:    verLink, 
              from:    "riddler <riddler@csivit.com>", 
             to:      "RiddlerUser <"+email+">",
              subject: "Riddler email verification",
             attachment:
             [
-              {data:vrfEmailFormat, alternative:true}
+              {data:verlink, alternative:true}
             ]
           }, function(err, message) { 
             
