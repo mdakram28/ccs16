@@ -7,7 +7,7 @@ var randtoken = require('rand-token');
 
 var fs = require("fs");
 
-var vrfEmailFormat = fs.readFileSync("./config/verification_email_format.txt");
+var vrfEmailFormat = fs.readFileSync("./config/verification_email_format.txt",'utf8');
 
 var email   = require("emailjs");
 var server  = email.server.connect({
@@ -157,7 +157,7 @@ module.exports = function(passport) {
           //     {data:"<html>Click link below to verify your riddler account.<br/><a href='https://riddler-mdakram28.c9users.io/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken)+"'>Verify my mail</a></html>", alternative:true}
           //   ]
           // }, function(err, message) { console.log(err || message); });
-          var verLink = "https://riddler-mdakram28.c9users.io/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken);
+          var verLink = "https://riddler.csivit.com/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken);
           console.log(verLink);
           var emailHtml = "<html>Click here to verify : <a href=\""+verLink+"\">Verify my email</a></html>";
           console.log(emailHtml);
@@ -166,14 +166,14 @@ module.exports = function(passport) {
              from:    "riddler <riddler@csivit.com>", 
             to:      "RiddlerUser <"+email+">",
              subject: "Riddler email verification",
-             html:emailHtml
+             html:vrfEmailFormat.split("{{link}}").join(verLink)
             // attachment:
             // [
             //   {data:emailHtml, alternative:true}
             // ]
           }, function(err, message) { 
             
-          //console.log(vrfEmailFormat);
+          console.log(vrfEmailFormat);
             //console.log(err || message); 
             
           });
