@@ -25,10 +25,9 @@ module.exports = function(app, passport) {
 			req.flash("indexMessage","Account removed");
 			res.redirect("/");
 		});
-
 	});
 
-	app.get("/users",inter.isAdmin,inter.isLoggedIn,function(req,res){
+	app.get("/users",inter.isLoggedIn,inter.isAdmin,function(req,res){
 		User.find({},function(err,users){
 			var ret = [];
 			users.forEach(function(user){

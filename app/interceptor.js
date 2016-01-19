@@ -40,13 +40,24 @@ function isLoggedInAPI(req,res,next){
 	}
 }
 function isAdmin(req,res,next){
-	if(req.user.local.email!="MDAKRAM28@GMAIL.COM"){
-		return res.json("Unauthorized");
+	if(!req.isAdmin){
+		return res.send(401);
 	}
   next();
+}
+
+function allRequests(req,res,next){
+	res.locals.isAuthenticated = req.isAuthenticated();
+	if(res.locals.isAuthenticated){
+		req.isAdmin = res.locals.isAdmin = req.user.local.email.toUpperCase()=="MDAKRAM28@GMAIL.COM";
+	}else{
+		req.isAdmin = res.locals.isAdmin = false;
+	}
+	next();
 }
 
 
 module.exports.isLoggedIn = isLoggedIn;
 module.exports.isAdmin = isAdmin;
 module.exports.isLoggedInAPI = isLoggedInAPI;
+module.exports.allRequests = allRequests;

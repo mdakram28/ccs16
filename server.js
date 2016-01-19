@@ -4,11 +4,13 @@
 // get all the tools we need
 var express  = require('express');
 var app      = express();
-var port     = process.env.PORT || 6000;
+var port     = process.env.PORT || 8080;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
 var path = require("path");
+
+var inter = require("./app/interceptor");
 
 var configDB = require('./config/database.js');
 
@@ -38,6 +40,8 @@ app.configure(function() {
 		res.locals.isAuthenticated = req.isAuthenticated();
 		next();
 	});
+	
+	app.use(inter.allRequests);
 });
 
 // routes ======================================================================
