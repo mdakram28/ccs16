@@ -246,15 +246,11 @@ h1{
     border-top:none;
     border-right:none;
     border-left:none;
-    
-    border-color:white;
-    
+    border-color:#fff;
     margin:0.3em;
-    
     background-color: transparent;
     
-    opacity:0.15;
-    
+    opacity:0.3;
     text-transform:uppercase;
 }
 
@@ -295,7 +291,21 @@ input, select{
  
 }
 
+.form-group input:last-child{
+    color: #ee202e;
+    text-align: left;
+}
 
+.form-group input[type="submit"]{
+    opacity:1;
+}
+
+.form-group input[type="submit"]:hover{
+    color: #fff;
+    opacity:1;
+     -webkit-transition: color 0.75s;
+      -webkit-transition: opacity 0.75s;
+}
 
 
 .form-group input{
@@ -318,16 +328,7 @@ input, select{
     font-size: 18px;
 }
 
-#submit{
-    color: #ee202e;
-    
-    
-}
 
-#submit: hover{
-    color: #fff;
-    
-}
 
 ::selection {
   background-color: #ee202e;
@@ -351,9 +352,21 @@ input, select{
     
 }
 
+.remove-profile{
+    color: #ee202e;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+}
+
+.remove-profile:hover{
+    color: #fff;
+    
+}
+
 .white-bg 
 {
-    background-color: #40b1cd;
+    background-color: #355e68;
     padding: 0 3px 0 4px; /*add this if you want a bit of space around the text*/
 }
 
