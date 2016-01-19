@@ -159,7 +159,8 @@ module.exports = function(passport) {
           // }, function(err, message) { console.log(err || message); });
           var verLink = "https://riddler-mdakram28.c9users.io/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken);
           console.log(verLink);
-          
+          var emailHtml = "<html>Click here to verify : <a href=\""+verLink+"\">Verify my email</a></html>";
+          console.log(emailHtml);
           transport.sendMail({
              text:    "Email verification for riddler", 
              from:    "riddler <riddler@csivit.com>", 
@@ -167,7 +168,7 @@ module.exports = function(passport) {
              subject: "Riddler email verification",
             attachment:
             [
-              {data:"<html>Click here to verify : <a href='"+verLink+"'>Verify my email</a></html>", alternative:true}
+              {data:emailHtml, alternative:true}
             ]
           }, function(err, message) { 
             
