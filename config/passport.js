@@ -162,7 +162,7 @@ module.exports = function(passport) {
           
           
           transport.sendMail({
-             text:    "Riddler email verification", 
+             text:    vrfEmailFormat, 
              from:    "riddler <riddler@csivit.com>", 
             to:      "RiddlerUser <"+email+">",
              subject: "Riddler email verification",
