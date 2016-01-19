@@ -124,6 +124,13 @@ img.question{
 a{
     font-size: 35px;
     color: #90000a;
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.3s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
 }
 
 a:hover{
@@ -132,6 +139,7 @@ a:hover{
     text-decoration: none; 
     cursor: pointer;
     transition: 0.5s;
+    
 }
 
 a:select{

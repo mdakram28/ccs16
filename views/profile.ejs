@@ -40,6 +40,16 @@
 
 			</div>
 		</div>
+		<% if(isAdmin){ %>
+		<div class="col-sm-6" style="color: #ee202e">
+			Users : <br/>
+			<div class="usersList" style="color: #fff">
+				<% users.forEach(function(u){ %>
+					<%= u.profile.username %> | 
+				<% }) %>
+			</div>
+		</div>
+		<% } %>
 	</div>
 
 </div>
