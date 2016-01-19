@@ -27,7 +27,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.get("/users",isLoggedIn,function(req,res){
-		if(req.user.local.email!="mdakram28@gmail.com"){
+		if(req.user.local.email!="MDAKRAM28@GMAIL.COM"){
 			return res.json("Unauthorized");
 		}
 		User.find({},function(err,users){

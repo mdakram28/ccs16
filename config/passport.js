@@ -5,14 +5,14 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 var randtoken = require('rand-token');
 
-var email   = require("emailjs");
-var server  = email.server.connect({
-  user:    "askcsivit@gmail.com",
-  password:"KE5TONnbZADJkcIy98_mZA",
-  host:    "smtp.mandrillapp.com",
-  //ssl:     true,
-  port: 587
-});
+// var email   = require("emailjs");
+// var server  = email.server.connect({
+//   user:    "mdakram28@gmail.com",
+//   password:"iamakram",
+//   host:    "smtp.gmail.com",
+//   ssl:     true
+//   //port: 587
+// });
 
 var nodemailer = require('nodemailer');
  
@@ -39,7 +39,7 @@ function verifyCred(email,password){
 		if(!match_email){
 		  return "email";
 		}
-		var match_pass = (/^.{5,15}/).test(password);
+		var match_pass = (/^.{5,20}/).test(password);
 		if(!match_pass){
 		  return "password";
 		}
@@ -102,6 +102,7 @@ module.exports = function(passport) {
     if(password != req.body.password2){
       return done(null,false,req.flash("signupMessage","Passwords dont match"));
     }
+    email = email.toUpperCase();
     
     // asynchronous
     process.nextTick(function() {
@@ -110,7 +111,7 @@ module.exports = function(passport) {
     if(verify=="email"){
       return done(null,false,req.flash("signupMessage","Invalid email address"));
     }else if(verify=="password"){
-      return done(null,false,req.flash("signupMessage","Password must be of length 5 - 15"));
+      return done(null,false,req.flash("signupMessage","Password must be of length 5 - 20"));
     }
       //  Whether we're signing up or connecting an account, we'll need
       //  to know if the email address is in use.
@@ -126,7 +127,7 @@ module.exports = function(passport) {
           if(existingUser.local.verified==true){
             return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
           }else{
-            User.findOne({_id: existingUser._id}).remove().exec();
+            User.findOne({"local.email":email}).remove().exec();
           }
         }
 
@@ -142,20 +143,23 @@ module.exports = function(passport) {
           if (err)
           throw err;
 
-          server.send({
-            text:    "https://riddler-mdakram28.c9users.io/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken),
-            from:    "riddler <mdakram28@gmail.com>",
-            to:      "RiddlerUser <"+email+">",
-            subject: "Riddler email verification",
-            attachment:
-            [
-              {data:"<html>Click link below to verify your riddler account.<br/><a href='https://riddler-mdakram28.c9users.io/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken)+"'>Verify my mail</a></html>", alternative:true}
-            ]
-          }, function(err, message) { console.log(err || message); });
+          // server.send({
+          //   text:    "https://riddler-mdakram28.c9users.io/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken),
+          //   from:    "riddler <mdakram28@gmail.com>",
+          //   to:      "RiddlerUser <"+email+">",
+          //   subject: "Riddler email verification",
+          //   attachment:
+          //   [
+          //     {data:"<html>Click link below to verify your riddler account.<br/><a href='https://riddler-mdakram28.c9users.io/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken)+"'>Verify my mail</a></html>", alternative:true}
+          //   ]
+          // }, function(err, message) { console.log(err || message); });
+          var verLink = "https://riddler-mdakram28.c9users.io/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken);
+          console.log(verLink);
           
-          server.send({
+          
+          transport.sendMail({
              text:    "Riddler email verification", 
-             from:    "riddler <askcsivit@gmail.com>", 
+             from:    "riddler <riddler@csivit.com>", 
             to:      "RiddlerUser <"+email+">",
              subject: "Riddler email verification",
             attachment:

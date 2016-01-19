@@ -171,7 +171,7 @@ footer{
     position: relative;
 }
 
-ul{
+ul li{
     display: inline-block;
     list-style: none;
 }
@@ -251,6 +251,10 @@ h1{
     text-transform:uppercase;
 }
 
+.form-group input[type="password"]{
+    text-transform:none !important;
+}
+
 .form-group input:focus{
     opacity:0.8;
     -webkit-transition: opacity 0.75s;
@@ -277,10 +281,14 @@ h1{
 }
 
 input, select{
-    color: #DCDCDC;
+    color: #aaa;
     opacity:0.8;
     outline:none;
+ 
 }
+
+
+
 
 .form-group input{
     width:100%;  
@@ -295,6 +303,21 @@ input, select{
     background-color: transparent;
     color: #fff;
     
+}
+
+.signup{
+    color: #ee202e;
+    font-size: 18px;
+}
+
+::selection {
+  background-color: #ee202e;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: #ee202e;
+  color: #fff;
 }
 
 
@@ -313,12 +336,3 @@ h1.title{
 }
 
 
-body::selection {
-  background-color: #ee202e;
-  color: #ffffff;
-}
-
-body::-moz-selection {
-  background-color: #ee202e;
-  color: #fff;
-}
