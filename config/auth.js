@@ -12,7 +12,7 @@ module.exports = {
 	'googleAuth' : {
 		'clientID' 		: '716486705233-dflg393u6vrjsbmdtpnvk25k2pinbc51.apps.googleusercontent.com',
 		'clientSecret' 	: 'lInwZhdwjnJZW0gkp8q1MHAo',
-		'callbackURL' 	: '/auth/google/callback'
+		'callbackURL' 	: 'http://riddler.csivit.com/auth/google/callback'
 	}
 
 };
