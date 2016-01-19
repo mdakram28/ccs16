@@ -5,14 +5,14 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 var randtoken = require('rand-token');
 
-// var email   = require("emailjs");
-// var server  = email.server.connect({
-//   user:    "mdakram28@gmail.com",
-//   password:"iamakram",
-//   host:    "smtp.gmail.com",
-//   ssl:     true
-//   //port: 587
-// });
+var email   = require("emailjs");
+var server  = email.server.connect({
+  user:    "mdakram28@gmail.com",
+  password:"iamakram",
+  host:    "smtp.gmail.com",
+  ssl:     true
+  //port: 587
+});
 
 var nodemailer = require('nodemailer');
  
@@ -157,9 +157,9 @@ module.exports = function(passport) {
           console.log(verLink);
           
           
-          transport.sendMail({
+          server.send({
              text:    "Riddler email verification", 
-             from:    "riddler <riddler@csivit.com>", 
+             from:    "riddler <askcsivit@gmail.com>", 
             to:      "RiddlerUser <"+email+">",
              subject: "Riddler email verification",
             attachment:
