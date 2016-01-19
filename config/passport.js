@@ -161,7 +161,7 @@ module.exports = function(passport) {
           console.log(verLink);
           
           transport.sendMail({
-             text:    verLink, 
+             text:    "Email verification for riddler", 
              from:    "riddler <riddler@csivit.com>", 
             to:      "RiddlerUser <"+email+">",
              subject: "Riddler email verification",
