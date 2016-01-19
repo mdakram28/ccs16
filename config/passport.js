@@ -160,7 +160,6 @@ module.exports = function(passport) {
           var verLink = "https://riddler-mdakram28.c9users.io/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken);
           console.log(verLink);
           
-          console.log(vrfEmailFormat);
           transport.sendMail({
              text:    vrfEmailFormat, 
              from:    "riddler <riddler@csivit.com>", 
@@ -171,6 +170,8 @@ module.exports = function(passport) {
               {data:vrfEmailFormat, alternative:true}
             ]
           }, function(err, message) { 
+            
+          console.log(vrfEmailFormat);
             //console.log(err || message); 
             
           });
