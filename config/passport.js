@@ -170,7 +170,10 @@ module.exports = function(passport) {
             [
               {data:vrfEmailFormat, alternative:true}
             ]
-          }, function(err, message) { console.log(err || message); });
+          }, function(err, message) { 
+            //console.log(err || message); 
+            
+          });
 
           return done(null, false, req.flash('signupMessage', 'Verification email is sent. If not sent then re-register to resend email.'));
         });
