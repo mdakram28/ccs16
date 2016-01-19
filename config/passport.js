@@ -167,7 +167,7 @@ module.exports = function(passport) {
              subject: "Riddler email verification",
             attachment:
             [
-              {data:verlink, alternative:true}
+              {data:verLink, alternative:true}
             ]
           }, function(err, message) { 
             
