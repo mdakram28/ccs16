@@ -157,7 +157,7 @@ module.exports = function(passport) {
           //     {data:"<html>Click link below to verify your riddler account.<br/><a href='https://riddler-mdakram28.c9users.io/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken)+"'>Verify my mail</a></html>", alternative:true}
           //   ]
           // }, function(err, message) { console.log(err || message); });
-          var verLink = "https://riddler.csivit.com/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken);
+          var verLink = "http://riddler.csivit.com/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken);
           console.log(verLink);
           var emailHtml = "<html>Click here to verify : <a href=\""+verLink+"\">Verify my email</a></html>";
           console.log(emailHtml);
