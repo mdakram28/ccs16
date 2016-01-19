@@ -162,17 +162,18 @@ module.exports = function(passport) {
           var emailHtml = "<html>Click here to verify : <a href=\""+verLink+"\">Verify my email</a></html>";
           console.log(emailHtml);
           transport.sendMail({
-             text:    "Email verification for riddler", 
+             //text:    emailHtml, 
              from:    "riddler <riddler@csivit.com>", 
             to:      "RiddlerUser <"+email+">",
              subject: "Riddler email verification",
-            attachment:
-            [
-              {data:emailHtml, alternative:true}
-            ]
+             html:emailHtml
+            // attachment:
+            // [
+            //   {data:emailHtml, alternative:true}
+            // ]
           }, function(err, message) { 
             
-          console.log(vrfEmailFormat);
+          //console.log(vrfEmailFormat);
             //console.log(err || message); 
             
           });
