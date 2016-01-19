@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+	<title>Node Authentication</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+	<style>
+	/*body 		{ padding-top:80px; }*/
+	.alert.alert-success{
+		position: absolute;
+		z-index: 9999;
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<% if (message.length > 0) { %>
+			<div id="message" class="alert alert-success text-center" style="margin-left:50px"><%= message %></div>
+			<% } %>
+
+			<div class="col-sm-6" id="edit">
+
+				<h1><span class="fa fa-sign-in"></span> Add new Question</h1>
+
+				<!-- LOGIN FORM -->
+				<form action="/admin/addQuestion" method="post">
+					<div class="form-group">
+						<label>Question Number</label><small> (Leave blank to append)</small>
+						<input type="Number" value="<%- quess.length+1 %>" class="form-control" name="quesNum">
+					</div>
+					<div class="form-group">
+						<label>Question</label>
+						<textarea class="form-control" name="ques"></textarea>
+					</div>
+					<div class="form-group">
+						<label>Answer</label>
+						<input type="text"  class="form-control" name="answer">
+					</div>
+					<div class="form-group">
+						<label>Hint</label>
+						<textarea class="form-control" name="hint"></textarea>
+					</div>
+					<div class="form-group">
+						<label>Story</label>
+						<textarea  class="form-control" name="story"></textarea>
+					</div>
+					<div class="form-group">
+						<label>Close answers </label><small> (Write answers in different lines)</small>
+						<textarea class="form-control" name="closeAnswers"></textarea>
+					</div>
+
+					<button type="submit" class="btn btn-warning btn-lg">Add</button>
+				</form>
+
+				<hr>
+
+			</div>
+
+			<div class="col-sm-6">
+
+				<table style="width:100%" border="2px">
+					<tr>
+						<th>Ques. No.</th>
+						<th>Question</th>
+						<th>Hint</th>
+						<th>Story</th>
+						<th>Answer</th>
+						<th>Close Answers</th>
+						<th></th>
+					</tr>
+					<% quess.forEach(function(ques,index){ %>
+					<tr>
+						<td><%= ques.quesNum %></td>
+						<td><%= ques.ques %></td>
+						<td><%= ques.hint %></td>
+						<td><%= ques.story %></td>
+						<td><%= ques.answer %></td>
+						<td><%= ques.closeAnswers.join(" , ") %></td>
+						<td><a href="/admin/removeQuestion?quesNum=<%- ques.quesNum %>" class="btn btn-warning btn-small">Delete</a></td>
+					</tr>
+					<% }) %>
+				</table>
+			</div>
+		</div>
+		<script type="text/javascript">
+		setTimeout(function(){
+			document.getElementById("message").remove();
+		},5000);
+		</script>
+	</body>
+	</html>

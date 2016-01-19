@@ -34,16 +34,6 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	app.get("/users",inter.isLoggedIn,inter.isAdmin,function(req,res){
-		User.find({},function(err,users){
-			var ret = [];
-			users.forEach(function(user){
-				ret.push(user);
-			});
-			res.json(ret);
-		});
-	});
-
 	//details page
 
 	app.get('/details', function(req,res){
