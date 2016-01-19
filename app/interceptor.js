@@ -48,7 +48,7 @@ function isAdmin(req,res,next){
 
 function allRequests(req,res,next){
 	res.locals.isAuthenticated = req.isAuthenticated();
-	if(res.locals.isAuthenticated){
+	if(res.locals.isAuthenticated && req.user.authType=="local"){
 		req.isAdmin = res.locals.isAdmin = req.user.local.email.toUpperCase()=="MDAKRAM28@GMAIL.COM";
 	}else{
 		req.isAdmin = res.locals.isAdmin = false;
