@@ -53,7 +53,7 @@ h1.title{
     color: #fff;
     font-size: 90px;
     letter-spacing: 40px;
-    padding: 20px 0 0 26px;
+    padding: 20px 0 0 30px;
 }
 
 h2{
@@ -62,7 +62,7 @@ h2{
 }
 
 .title{
-    margin-left: 18px;
+    margin-left: 18.5px;
 }
 
 .question{
@@ -156,12 +156,6 @@ i.fa:hover{
     cursor: pointer;
 }
 
-
-
-.fa-facebook, .fa-google-plus, .fa-twitter :hover{
-    color: #fff;
-    
-}
 
 footer{
     background-color: #ee202e;
@@ -297,6 +291,7 @@ input, select{
 }
 
 .form-group input[type="submit"]{
+    border: none;
     opacity:1;
 }
 
@@ -328,7 +323,15 @@ input, select{
     font-size: 18px;
 }
 
+#form .fa{
+    color: #aaa;
+    
+}
 
+#form .fa:hover{
+    color: #fff;
+    
+}
 
 ::selection {
   background-color: #ee202e;

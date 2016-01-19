@@ -24,7 +24,7 @@ var mandrillTransport = require('nodemailer-mandrill-transport');
  
 var transport = nodemailer.createTransport(mandrillTransport({
   auth: {
-    apiKey: 'KE5TONnbZADJkcIy98_mZA'
+    apiKey: 'VlebD23ANBQI0q6TzKdx2Q'
   }
 }));
 
