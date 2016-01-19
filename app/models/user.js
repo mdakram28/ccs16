@@ -28,6 +28,18 @@ var userSchema = mongoose.Schema({
         token        : String,
         email        : String,
         name         : String
+    },
+    status:{
+      currentQues:{type:Number,default:1},
+      attempts:{type:Number,default:0},
+      credits:{type:Number,default:0},
+      hints:[Number]
+    },
+    logs:{
+      attempsLog:[{
+        quesNum : Number,
+        attemps:[String]
+      }]
     }
 
 });

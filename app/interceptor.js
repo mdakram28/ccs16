@@ -1,3 +1,5 @@
+
+// route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
 	if (!req.isAuthenticated())
 		return res.redirect('/login');
@@ -28,4 +30,23 @@ function isLoggedIn(req, res, next) {
 	next();
 }
 
+function isLoggedInAPI(req,res,next){
+	if(!req.isAuthenticated()){
+		res.send(401);	// unauthorized
+	}else if(!req.user.detailsFilled || req.user.detailsFilled==false){
+		res.send(401);	// unauthorized
+	}else{
+		next();
+	}
+}
+function isAdmin(req,res,next){
+	if(req.user.local.email!="MDAKRAM28@GMAIL.COM"){
+		return res.json("Unauthorized");
+	}
+  next();
+}
+
+
 module.exports.isLoggedIn = isLoggedIn;
+module.exports.isAdmin = isAdmin;
+module.exports.isLoggedInAPI = isLoggedInAPI;
