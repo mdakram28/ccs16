@@ -1,4 +1,5 @@
 // load all the things we need
+var serverConfig = require("../serverFiles/config");
 var LocalStrategy    = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy  = require('passport-twitter').Strategy;
@@ -148,7 +149,7 @@ module.exports = function(passport) {
           //     {data:"<html>Click link below to verify your riddler account.<br/><a href='https://riddler-mdakram28.c9users.io/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken)+"'>Verify my mail</a></html>", alternative:true}
           //   ]
           // }, function(err, message) { console.log(err || message); });
-          var verLink = "http://riddler.csivit.com/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken);
+          var verLink = serverConfig.domain+"/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken);
           console.log(verLink);
           var emailHtml = "<html>Click here to verify : <a href=\""+verLink+"\">Verify my email</a></html>";
           console.log(emailHtml);
