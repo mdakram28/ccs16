@@ -13,7 +13,14 @@ module.exports = function(app, passport) {
 
 	// PROFILE SECTION =========================
 	app.get('/profile',inter.isLoggedIn, function(req, res) {
-		res.render('profile.ejs');
+		if(req.isAdmin){
+			User.find({},function(err, users) {
+			    res.locals.users = users;
+			    res.render("profile.ejs");
+			});
+		}else{
+			res.render('profile.ejs');
+		}
 	});
 
 	///removeAccount

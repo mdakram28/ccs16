@@ -21,6 +21,10 @@
 		
 		<a href="/logout" class="submit-profile" style="padding-right:20px">Logout</a>
 		<a href="/details" class="submit-profile" style="padding-right:20px">Update Details</a>
+		
+		<% if(isAdmin){ %>
+		<a href="/users" target="new" class="submit-profile pull-right" style="padding-right:20px">Users : <%= users.length %></a>
+		<% } %>
 	</div>
 
 	<div class="row">
