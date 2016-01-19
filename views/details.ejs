@@ -13,11 +13,11 @@
 <div class="container">
 	<div class="text-center">
 
-		<h2><%= 23-(new Date()).getDate() %> DAYS TO GO</h2>
+		<h2 style="color:#717171; padding-top:30px"><%= 23-(new Date()).getDate() %> DAYS TO GO</h2>
 	</div>
-<div class="col-sm-6 col-sm-offset-3">
+<div class="col-sm-6 col-sm-offset-3" style="padding-top: 40px">
 
-	<h1><span class="fa fa-sign-in"></span> Profile info</h1>
+	<h2 style="margin-left:5px"> Hi! Edit your <span class="white-bg">Profile information</span></h2>
 
 	<% if (message.length > 0) { %>
 		<div class="alert alert-danger"><%= message %></div>
@@ -27,19 +27,18 @@
 	<form action="/details" method="post">
 		<div class="form-group">
 			
-			<input type="text" placeholder="Registration Number" value="<%= user.profile.regNo||"" %>" class="form-control" name="regNo">
+			<input type="text" placeholder="Registration Number" value="<%= user.profile.regNo||"" %>" name="regNo">
 		</div>
 		<div class="form-group">
-			<input type="text" placeholder="User Name" value="<%= user.profile.username||"" %>" class="form-control" name="username">
+			<input type="text" placeholder="User Name" value="<%= user.profile.username||"" %>" name="username">
 		</div>
 		<div class="form-group">
-			<input type="text" placeholder="Mobile Number" value="<%= user.profile.mobNo||"" %>" class="form-control" name="mobNo">
+			<input type="text" placeholder="Mobile Number" value="<%= user.profile.mobNo||"" %>" name="mobNo">
 		</div>
-
-		<button type="submit" class="btn btn-warning btn-lg">Update</button>
+		<span style:"padding: 40px"></span>
+		<button type="submit" class="submit-profile">Update my profile</button>
 	</form>
 
-	<hr>
 
 </div>
 </div>

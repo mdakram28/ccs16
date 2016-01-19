@@ -1,7 +1,7 @@
 @font-face{
     font-family: PierSans;
     src: url("../fonts/pier-bold.otf");
-    src: url("../fonts/pier-regular.otf");
+    src: url("../fonts/PierSans.otf");
     
 }
 * {
@@ -54,6 +54,11 @@ h1.title{
     font-size: 90px;
     letter-spacing: 40px;
     padding: 20px 0 0 26px;
+}
+
+h2{
+    color: #ee202e;
+    
 }
 
 .title{
@@ -202,16 +207,16 @@ ul li{
 }
 
 input:hover::-webkit-input-placeholder{
-    color:#DCDCDC;
+    color:#fff;
     opacity:1;
 }
 
 :-moz-placeholder:hover {
-    color:#DCDCDC;
+    color:#fff;
     opacity:1;
 }
 :-ms-input-placeholder:hover {
-    color:#DCDCDC;
+    color:#fff;
     opacity:1;
 }
 
@@ -229,8 +234,8 @@ input:hover::-webkit-input-placeholder{
 
 h1{
     margin-bottom:1em;
-    color:#EE2932;
-    font-family: 'Open Sans', sans-serif;
+    color:#EE202E;
+    font-family: PierSans, 'Open Sans', sans-serif;
     font-variant:small-caps;
     font-size:50px;
 }
@@ -256,14 +261,14 @@ h1{
 }
 
 .form-group input:focus{
-    opacity:0.8;
-    -webkit-transition: opacity 0.75s;
+    opacity:1;
+    -webkit-transition: opacity 0.5s;
 }
 
 .form-group input:hover{
-    opacity:0.8;
+    opacity:1;
     border-color:white;
-    -webkit-transition: opacity 0.75s;
+    -webkit-transition: opacity 0.5s;
 }
 
 .form-group a{
@@ -320,6 +325,23 @@ input, select{
   color: #fff;
 }
 
+.submit-profile{
+    color: #ee202e;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+}
+
+.submit-profile:hover{
+    color: #fff;
+    
+}
+
+.white-bg 
+{
+    background-color: #ffffff;
+    padding: 3px; /*add this if you want a bit of space around the text*/
+}
 
 /*
 *Queries
