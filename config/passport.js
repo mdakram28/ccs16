@@ -9,15 +9,6 @@ var fs = require("fs");
 
 var vrfEmailFormat = fs.readFileSync("./config/verification_email_format.txt",'utf8');
 
-var email   = require("emailjs");
-var server  = email.server.connect({
-  user:    "mdakram28@gmail.com",
-  password:"iamakram",
-  host:    "smtp.gmail.com",
-  ssl:     true
-  //port: 587
-});
-
 var nodemailer = require('nodemailer');
  
 var mandrillTransport = require('nodemailer-mandrill-transport');
