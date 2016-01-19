@@ -1,5 +1,7 @@
 var User = require("./models/user");
 
+var inter = require("./interceptor");
+
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
@@ -10,12 +12,12 @@ module.exports = function(app, passport) {
 	});
 
 	// PROFILE SECTION =========================
-	app.get('/profile',isLoggedIn, function(req, res) {
+	app.get('/profile',inter.isLoggedIn, function(req, res) {
 		res.render('profile.ejs');
 	});
 
 	///removeAccount
-	app.get('/removeAccount',isLoggedIn,function(req,res){
+	app.get('/removeAccount',inter.isLoggedIn,function(req,res){
 		User.findOne({_id:req.user._id}).remove(function(err){
 			if(err){
 				return res.send("Some error occurred");
@@ -26,7 +28,7 @@ module.exports = function(app, passport) {
 
 	});
 
-	app.get("/users",isLoggedIn,function(req,res){
+	app.get("/users",inter.isLoggedIn,function(req,res){
 		if(req.user.local.email!="MDAKRAM28@GMAIL.COM"){
 			return res.json("Unauthorized");
 		}
@@ -184,32 +186,4 @@ module.exports = function(app, passport) {
 };
 
 // route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-	if (!req.isAuthenticated())
-		return res.redirect('/login');
-	if(!req.user.detailsFilled){
-		return res.redirect('/details');
-	}
-	var userInfo = {
-		username : req.user.profile.username,
-		regNo : req.user.profile.regNo,
-		mobNo : req.user.profile.mobNo,
-		authType : req.user.authType
-	}
-	if(userInfo.authType=="local"){
-		userInfo.email = req.user.local.email;
-		userInfo.password = req.user.local.password;
-	}else if(userInfo.authType=="facebook"){
-		userInfo.email = req.user.facebook.email;
-		userInfo.password = req.user.facebook.token;
-	}else if(userInfo.authType=="twitter"){
-		userInfo.email = "";
-		userInfo.password = req.user.twitter.token;
-	}else if(userInfo.authType=="google"){
-		userInfo.email = req.user.google.email;
-		userInfo.password = req.user.google.token;
-	}
-	req.userInfo = userInfo;
-	res.locals.userInfo = userInfo;
-	next();
-}
+

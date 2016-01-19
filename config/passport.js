@@ -173,7 +173,7 @@ module.exports = function(passport) {
             // ]
           }, function(err, message) { 
             
-          console.log(vrfEmailFormat);
+          //console.log(vrfEmailFormat);
             //console.log(err || message); 
             
           });
