@@ -5,6 +5,10 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 var randtoken = require('rand-token');
 
+var fs = require("fs");
+
+var vrfEmailFormat = fs.readFileSync("./config/verification_email_format.txt");
+
 var email   = require("emailjs");
 var server  = email.server.connect({
   user:    "mdakram28@gmail.com",
@@ -164,7 +168,7 @@ module.exports = function(passport) {
              subject: "Riddler email verification",
             attachment:
             [
-              {data:"<html>Click link below to verify your riddler account.<br/><a href='https://riddler-mdakram28.c9users.io/auth/local/verifyEmail?email="+encodeURIComponent(email)+"&token="+encodeURIComponent(newUser.local.vrfToken)+"'>Verify my mail</a></html>", alternative:true}
+              {data:email, alternative:true}
             ]
           }, function(err, message) { console.log(err || message); });
 

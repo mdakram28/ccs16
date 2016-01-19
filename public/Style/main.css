@@ -156,8 +156,10 @@ i.fa:hover{
     cursor: pointer;
 }
 
-.fa-facebook, .fa-google-plus, .fa-twitter{
 
+
+.fa-facebook, .fa-google-plus, .fa-twitter :hover{
+    color: #fff;
     
 }
 
@@ -256,6 +258,7 @@ h1{
     text-transform:uppercase;
 }
 
+
 .form-group input[type="password"]{
     text-transform:none !important;
 }
@@ -315,6 +318,17 @@ input, select{
     font-size: 18px;
 }
 
+#submit{
+    color: #ee202e;
+    
+    
+}
+
+#submit: hover{
+    color: #fff;
+    
+}
+
 ::selection {
   background-color: #ee202e;
   color: #ffffff;
@@ -339,8 +353,8 @@ input, select{
 
 .white-bg 
 {
-    background-color: #ffffff;
-    padding: 3px; /*add this if you want a bit of space around the text*/
+    background-color: #40b1cd;
+    padding: 0 3px 0 4px; /*add this if you want a bit of space around the text*/
 }
 
 /*
