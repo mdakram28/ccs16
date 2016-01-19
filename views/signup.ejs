@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+	<title>Node Authentication</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<style>
+		/*body 		{ padding-top:80px; }*/
+		.btn {
+		    border-radius: 3px;
+		    -webkit-box-shadow: none;
+		    box-shadow: none;
+		    border: 1px solid transparent;
+		}
+		.btn-social {
+		    position: relative;
+		    padding-left: 44px;
+		    text-align: left;
+		    white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		}
+		.btn-facebook {
+		    color: #fff;
+		    background-color: #3b5998;
+		    border-color: rgba(0,0,0,0.2);
+		}
+		.btn-twitter {
+		    color: #fff;
+		    background-color: #55acee;
+		    border-color: rgba(0,0,0,0.2);
+		}
+		.btn-google {
+		    color: #fff;
+		    background-color: #dd4b39;
+		    border-color: rgba(0,0,0,0.2);
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="jumbotron text-center">
+		<h1><a href="/">RIDDLER</a></h1>
+		<h2><%= 23-(new Date()).getDate() %> DAYS TO GO</h2>
+	</div>
+<div class="col-sm-6 col-sm-offset-3">
+
+	<h1><span class="fa fa-sign-in"></span> Signup</h1>
+
+	<% if (message.length > 0) { %>
+		<div class="alert alert-danger"><%= message %></div>
+	<% } %>
+
+	<!-- LOGIN FORM -->
+	<form action="/signup" method="post">
+		<div class="form-group">
+			<label>Email</label>
+			<input type="text" class="form-control" name="email">
+		</div>
+		<div class="form-group">
+			<label>Password</label>
+			<input type="password" class="form-control" name="password">
+		</div>
+
+		<button type="submit" class="btn btn-warning btn-lg">Signup</button>
+	</form>
+
+	<hr>
+
+  <div class="social-auth-links text-center">
+		OR<br>
+		<a href="/auth/facebook" class="btn btn-block btn-social btn-facebook btn-flat">
+			<i class="fa fa-facebook"></i> Sign in using Facebook
+		</a>
+	  <a href="/auth/google" class="btn btn-block btn-social btn-google btn-flat">
+			<i class="fa fa-google-plus"></i> Sign in using Google+
+		</a>
+	</div><br>
+
+	<p>Already have an account? <a href="/login">Login</a></p>
+
+</div>
+</div>
+</body>
+</html>

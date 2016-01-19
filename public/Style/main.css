@@ -1,0 +1,324 @@
+@font-face{
+    font-family: PierSans;
+    src: url("../fonts/pier-bold.otf");
+    src: url("../fonts/pier-regular.otf");
+    
+}
+* {
+  margin: 0;
+}
+
+body{
+    font-family: PierSans;
+    overflow-x: hidden;
+}
+
+.background{
+  opacity: 0.8;
+  z-index: -10;
+  background-size: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 1920px;
+  height: auto;
+  max-height: 1080px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-transition: opacity 1s;
+          transition: opacity 1s;
+}
+
+canvas{
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+}
+
+html, body {
+  background-color: #1a1a1a;
+  height: 100%;
+}
+
+div{
+    color: #1a1a1a;
+    font-family: PierSans;
+}
+
+h1.title{
+    color: #fff;
+    font-size: 90px;
+    letter-spacing: 40px;
+    padding: 20px 0 0 26px;
+}
+
+.title{
+    margin-left: 18px;
+}
+
+.question{
+    padding-top: 15px;
+    float: center;
+    width: 35%;
+    height: 35%;
+}
+
+img.question{
+    margin-left: 31.4%;
+}
+
+#countdowntimer{
+    height: 100%;
+}
+
+.countdownHolder{
+	width:450px;
+	margin:0 auto;
+    padding-bottom: 50px;
+	font: 40px/1.6 'PierSans','Open Sans Condensed',sans-serif;
+	text-align:center;
+	letter-spacing:-38px;
+
+}
+.position{
+	display: inline-block;
+	height: 3.6em;
+	overflow: hidden;
+	position: relative;
+	width: 1.05em;
+}
+
+.digit{
+	position:absolute;
+	display:block;
+	width:1em;
+	background-color:none;
+	text-align:center;
+	color:#aaa;
+	letter-spacing:-1px;
+}
+
+
+.countDiv{
+	display:inline-block;
+	width:26px;
+	position:relative;
+}
+
+.page-wrap {
+  min-height: 100%;
+  margin-bottom: -154px; 
+}
+
+
+ 
+a{
+    font-size: 35px;
+    color: #90000a;
+}
+
+a:hover{
+    transition: 0.2s;
+    color: #fff;
+    text-decoration: none; 
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+a:select{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.social_media{
+    display: inline-block;
+    margin: 40px auto 0 auto;
+    
+    
+}
+
+i.fa{
+    font-size: 1.5em;
+    text-align: left;
+}
+
+i.fa:hover{
+    color: #fff;
+    cursor: pointer;
+}
+
+.fa-facebook, .fa-google-plus, .fa-twitter{
+
+    
+}
+
+footer{
+    background-color: #ee202e;
+    width: 100%;
+    height: auto;
+    vertical-align: bottom;
+}
+
+.foot a{
+    vertical-align: center;
+}
+
+.login{
+    position: relative;
+}
+
+ul{
+    display: inline-block;
+    list-style: none;
+}
+
+.foot li{
+    display: inline-block;
+    padding: 0 10px 0 10px;
+}
+
+
+/*
+*Form
+*/
+*::-webkit-input-placeholder {
+    color: white;
+}
+*:-moz-placeholder {
+    /* FF 4-18 */
+    color: white;
+}
+*::-moz-placeholder {
+    /* FF 19+ */
+    color: white;
+}
+*:-ms-input-placeholder {
+    /* IE 10+ */
+    color: white;
+}
+
+input:hover::-webkit-input-placeholder{
+    color:#DCDCDC;
+    opacity:1;
+}
+
+:-moz-placeholder:hover {
+    color:#DCDCDC;
+    opacity:1;
+}
+:-ms-input-placeholder:hover {
+    color:#DCDCDC;
+    opacity:1;
+}
+
+.container-fluid{
+    padding:5%;
+}
+
+.col-lg-6{
+    padding:5%;
+}
+
+#form{
+    background-color:#1A1A1A;
+}
+
+h1{
+    margin-bottom:1em;
+    color:#EE2932;
+    font-family: 'Open Sans', sans-serif;
+    font-variant:small-caps;
+    font-size:50px;
+}
+
+.form-group input{
+    border-top:none;
+    border-right:none;
+    border-left:none;
+    
+    border-color:white;
+    
+    margin:0.3em;
+    
+    background-color: transparent;
+    
+    opacity:0.15;
+    
+    text-transform:uppercase;
+}
+
+.form-group input:focus{
+    opacity:0.8;
+    -webkit-transition: opacity 0.75s;
+}
+
+.form-group input:hover{
+    opacity:0.8;
+    border-color:white;
+    -webkit-transition: opacity 0.75s;
+}
+
+.form-group a{
+    margin-left:0.35em;
+    color:silver;
+    font-size:22px;
+}
+
+.form-group a:hover{
+    text-decoration: none;
+    color:white;
+    cursor: pointer; 
+    cursor: hand; 
+    -webkit-transition: color 0.75s;
+}
+
+input, select{
+    color: #DCDCDC;
+    opacity:0.8;
+    outline:none;
+}
+
+.form-group input{
+    width:100%;  
+    padding:2.5%;
+    padding-left:0;
+    padding-bottom:1.5%;
+    font-size:15px;
+}
+
+.container-fluid .alert{
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    
+}
+
+
+/*
+*Queries
+*/
+@media (max-width: 400px){
+h1.title{
+    font-size: 60px;
+    letter-spacing: 15px;
+    padding: 20px 0 0 30px;
+}
+    
+
+
+}
+
+
+body::selection {
+  background-color: #ee202e;
+  color: #ffffff;
+}
+
+body::-moz-selection {
+  background-color: #ee202e;
+  color: #fff;
+}

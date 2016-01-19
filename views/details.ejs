@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+	<title>Node Authentication</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<style>
+		/*body 		{ padding-top:80px; }*/
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="jumbotron text-center">
+		<h1><a href="/">RIDDLER</a></h1>
+		<h2><%= 23-(new Date()).getDate() %> DAYS TO GO</h2>
+	</div>
+<div class="col-sm-6 col-sm-offset-3">
+
+	<h1><span class="fa fa-sign-in"></span> Profile info</h1>
+
+	<% if (message.length > 0) { %>
+		<div class="alert alert-danger"><%= message %></div>
+	<% } %>
+
+	<!-- LOGIN FORM -->
+	<form action="/details" method="post">
+		<div class="form-group">
+			<label>Reg. No.</label>
+			<input type="text" value="<%= user.profile.regNo||"" %>" class="form-control" name="regNo">
+		</div>
+		<div class="form-group">
+			<label>Username</label>
+			<input type="text" value="<%= user.profile.username||"" %>" class="form-control" name="username">
+		</div>
+		<div class="form-group">
+			<label>Mob. No.</label>
+			<input type="text" value="<%= user.profile.mobNo||"" %>" class="form-control" name="mobNo">
+		</div>
+
+		<button type="submit" class="btn btn-warning btn-lg">Update</button>
+	</form>
+
+	<hr>
+
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+  <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">   -->
+    <title></title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="Style/main.css" type="text/css">
+    <link rel="stylesheet" href="Style/jquery.countdown.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="Style/mouseparallax.css">
+    
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="JavaScript/jquery.countdown.js"></script>
+    <script src="JavaScript/main.js"></script>
+    <script src="JavaScript/jquery.interactive_bg.js"></script>
+    
+</head>
+
+
+<body>
+	<% if (message.length > 0) { %>
+		<div class="alert alert-success"><center><%= message %></center></div>
+	<% } %>
+    
+    
+    <div class="bg" data-ibg-bg="/media/WALL10.jpg"></div>
+
+    
+
+
+
+    
+    <div class="page-wrap">   
+    
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+        <img alt="?" class="question img-responsive center-block" src="media/question.png">
+        <h1 class="title text-center">R I D D L E R</h1>
+        
+        </div> 
+    </div>
+    </div>
+    
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+       
+        <div id="countdown" class="countdownHolder"></div>
+        </div>
+    </div>
+    </div>
+    </div>
+  
+
+    
+    <footer class="foot">
+        <div class="login container">    
+        <div class="row">
+            <div class="column col-lg-12 col-md-12 col-sm-12 sol-xs-12 text-center" style="padding-top:20px">
+	        	<% if(!isAuthenticated){ %>
+	            <a id="loginButton">Login/Register</a>
+	            <% }else{ %>
+	            <a id="logoutButton">Logout</a>
+	            <% } %>
+            </div>
+        </div>
+        </div> 
+
+        <div class="container">    
+        <div class="row" >
+            <div class="social_media column col-lg-12 col-md-12 col-sm-12 sol-xs-12 text-center">
+                <ul style="margin-left:-40px">
+                <li><i class="fa fa-twitter" href="#"></i></li> 
+                <li><i class="fa fa-facebook" href="#"></i></li>    
+                <li><i class="fa fa-google-plus" href="#"></i></li>    
+                </ul>
+            </div>    
+        </div>
+        </div>
+    </footer>   
+        
+<script>
+$(document).ready(function(){
+    $(".bg").interactive_bg(); // function call
+});
+ 
+  // change background size on window resize
+  $(window).resize(function() {
+      $(".bg > .ibg-bg").css({
+        width: $(window).outerWidth(),
+        height: $(window).outerHeight()
+      })
+   })
+
+$(".bg").interactive_bg({
+   strength: 25,
+   scale: 1.05,
+   animationSpeed: "100ms",
+   contain: true,
+   wrapContent: false
+ });
+ 
+ $("#loginButton").click(function(){
+ 	window.location.pathname = "/login";
+ });
+ 
+ $("#logoutButton").click(function(){
+ 	window.location.pathname = "/logout";
+ });
+    
+</script>
+    
+</body>
+</html>

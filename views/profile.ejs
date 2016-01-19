@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<title>Node Authentication</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<style>
+		/*body 		{ padding-top:80px; word-wrap:break-word; }*/
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="jumbotron text-center">
+		<h1><a href="/">RIDDLER</a></h1>
+		<h2><%= 23-(new Date()).getDate() %> DAYS TO GO</h2>
+	</div>
+
+	<div class="page-header text-center">
+		<h1><span class="fa fa-anchor"></span> Profile Page</h1>
+		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+		<a href="/details" class="btn btn-default btn-sm">Update Details</a>
+		<a href="/removeAccount" class="btn btn-warning btn-sm pull-right">Remove Account</a>
+	</div>
+
+	<div class="row">
+
+		<!-- LOCAL INFORMATION -->
+		<div class="col-sm-6">
+			<div class="well">
+				<h3><span class="fa fa-user"></span> Local</h3>
+				<p>
+					<strong>email</strong>: <%= userInfo.email %><br>
+					<strong>Reg. No.</strong>: <%= userInfo.regNo %><br>
+					<strong>username</strong>: <%= userInfo.username %><br>
+					<strong>mobNo</strong>: <%= userInfo.mobNo %><br>
+				</p>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>
