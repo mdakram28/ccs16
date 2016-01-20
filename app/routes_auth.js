@@ -64,14 +64,14 @@ module.exports = function(app, passport) {
 		}
 
 		//var match_username = username.match(/\w{5,15}/);
-		if(!(/\w{5,15}/).test(username)){
-			req.flash("detailsMessage","Invalid username. It should be in the format /\\w{5,15}/ .");
+		if(!(/[\w_$\-@.]{5,20}/).test(username)){
+			req.flash("detailsMessage","Invalid username. It can contain alphanumric characters and _ $ - . @ characters. Length should be between 5 to 20 .");
 			return res.redirect("/details");
 		}
 
 		//var match_mobNo = mobNo.match(/\d{9,11}/);
 		if(!(/\d{9,11}/).test(mobNo)){
-			req.flash("detailsMessage","Invalid mobile Number. It should be in the format /\\d{9,11}/.");
+			req.flash("detailsMessage","Invalid mobile Number.");
 			return res.redirect("/details");
 		}
 		req.user.profile.regNo = regNo;
