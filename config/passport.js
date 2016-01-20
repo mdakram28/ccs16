@@ -204,7 +204,12 @@ module.exports = function(passport) {
             if (!user.facebook.token) {
               user.facebook.token = token;
               user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
-              user.facebook.email = profile.emails[0].value;
+              if(profile.emails!=undefined && profile.mails[0]!=undefined){
+                user.facebook.email = profile.emails[0].value;
+              }else{
+                user.facebook.email = "NAN";
+              }
+              
 
               user.save(function(err) {
                 if (err)
