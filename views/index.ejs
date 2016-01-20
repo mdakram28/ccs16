@@ -14,7 +14,7 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="JavaScript/jquery.countdown.js"></script>
     <script src="JavaScript/main.js"></script>
-    <script src="JavaScript/jquery.interactive_bg.js"></script>
+    <script src="JavaScript/canvas.js"></script>
     
 </head>
 
@@ -23,14 +23,7 @@
 	<% if (message.length > 0) { %>
 		<div class="alert alert-success"><center><%= message %></center></div>
 	<% } %>
-    
-    
- 
-
-
-
-
-    
+<canvas style="position:absolute; top:50%; left:50%; " id="space"></canvas>
     <div class="page-wrap">   
     
     <div class="container">
@@ -38,6 +31,9 @@
         <div class="col-md-12 col-lg-12 col-sm-12">
         <img alt="?" class="question img-responsive center-block" src="media/question.png">
         <h1 class="title text-center">R I D $ L E R</h1>
+        <div class="row text-center scroll-down">
+        <a href="#footer"><i class="fa fa-angle-down"></i></a>
+        </div>
         </div> 
     </div>
     </div>
@@ -54,7 +50,7 @@
   
 
     
-    <footer class="foot">
+    <footer class="foot" id="footer">
         <div class="login container">    
         <div class="row">
             <div class="column col-lg-12 col-md-12 col-sm-12 sol-xs-12 text-center" style="padding-top:20px">
@@ -71,9 +67,9 @@
         <div class="row" >
             <div class="social_media column col-lg-12 col-md-12 col-sm-12 sol-xs-12 text-center">
                 <ul style="margin-left:-40px">
-                <li><i class="fa fa-twitter" href="https://twitter.com/csivitu"></i></li> 
-                <li><i class="fa fa-facebook" href="https://www.facebook.com/csivit/?ref=ts&fref=ts"></i></li>    
-                <li><i class="fa fa-google-plus" href="#"></i></li>    
+                <li><a class="social_index" href="https://twitter.com/csivitu"><i class="fa fa-twitter"></i></a></li> 
+                <li><a class="social_index" href="https://www.facebook.com/csivit/?ref=ts&fref=ts" ><i class="fa fa-facebook"></i></a></li>    
+                <li><a class="social_index" href="https://plus.google.com/116420586753521131941"><i class="fa fa-google-plus" ></i></a></li>    
                 </ul>
             </div>    
         </div>
@@ -81,25 +77,20 @@
     </footer>   
         
 <script>
-$(document).ready(function(){
-    $(".bg").interactive_bg(); // function call
-});
- 
-  // change background size on window resize
-  $(window).resize(function() {
-      $(".bg > .ibg-bg").css({
-        width: $(window).outerWidth(),
-        height: $(window).outerHeight()
-      })
-   })
 
-$(".bg").interactive_bg({
-   strength: 25,
-   scale: 1.05,
-   animationSpeed: "100ms",
-   contain: true,
-   wrapContent: false
- });
+$('a[href*="#"]:not([href="#"])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      if (target.length) {
+        $('html,body').animate({
+          scrollTop: target.offset().top
+        }, 1000);
+        return false;
+      }
+    }
+  });
+
  
  $("#loginButton").click(function(){
  	window.location.pathname = "/login";

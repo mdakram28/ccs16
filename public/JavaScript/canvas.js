@@ -1,190 +1,114 @@
-// Transition
-// Ported from flash project - http://wonderfl.net/c/4gvL
-//
+var canvas;
+var context;
+var screenH;
+var screenW;
+var stars = [];
+var fps = 350;
+var numStars = 2000;
 
-$(document).ready(){function Transition() {
+$('document').ready(function() {
+  
+  // Calculate the screen size
+	screenH = $(window).height();
+	screenW = $(window).width();
+	
+	// Get the canvas
+	canvas = $('#space');
+	
+	// Fill out the canvas
+	canvas.attr('height', screenH);
+	canvas.attr('width', screenW);
+	context = canvas[0].getContext('2d');
+	
+	// Create all the stars
+	for(var i = 0; i < numStars; i++) {
+		var x = Math.round(Math.random() * screenW);
+		var y = Math.round(Math.random() * screenH);
+		var length = 1 + Math.random() * 2;
+		var opacity = Math.random();
+		
+		// Create a new star and draw
+		var star = new Star(x, y, length, opacity);
+		
+		// Add the the stars array
+		stars.push(star);
+	}
+	
+	setInterval(animate, 10000 / fps);
+});
 
-  var canvas;
-  var context;
-
-  var width;
-  var height;
-
-  var oX;
-  var oY;
-
-  var v = 2;
-  var obj_max = 60;
-
-  var max = 20;
-  var amax = 0;
-
-  var firstParticle;
-
-  var interval;
-
-  this.initialize = function() {
-    canvas = document.getElementById("canvas");
-    context = canvas.getContext('2d');
-
-    width = window.innerWidth
-    height = window.innerHeight
-
-    oX = width / 2;
-    oY = height / 2;
-
-    canvas.width = width;
-    canvas.height = height;
-
-    createParticles();
-
-    canvas.addEventListener('click', MouseDown, false);
-
-    //Set interval - Bad! - I know!
-    var interval = setInterval(Update, 20);
-  }
-
-  var createParticles = function() {
-
-    var sr = 1;
-    var vr = 0.00005;
-
-    firstParticle = new Particle();
-    var p = firstParticle;
-
-    var i;
-    for (i = 0; i < max; i++) {
-      p.ang = i * max;
-      p.vang = 1;
-      p.r = 10;
-      p.vr = 0;
-      p.x = oX;
-      p.y = oY;
-
-      if (i != max - 1) {
-        p.next = new Particle();
-        p = p.next;
-      }
-    }
-  }
-
-  //Point class.
-  var Particle = function() {
-    this.ang;
-    this.vang;
-    this.r;
-    this.vr;
-    this.x;
-    this.y;
-    this.next; //Child
-  }
-
-  var Update = function() {
-
-    var count = 0;
-    var p = firstParticle;
-
-    while (p) {
-      count++;
-
-      if (p.r > 400) {
-
-        p = p.next;
-        continue;
-
-      }
-
-      var ran = Math.random();
-
-      if (ran < 0.1) {
-
-        p.vang = 0;
-        p.vr = v;
-
-      } else if (ran < 0.2) {
-
-        p.vang = -v;
-        p.vr = 0;
-
-      } else if (ran < 0.3) {
-
-        p.vang = v;
-        p.vr = 0;
-
-      } else if (ran < 0.304 && amax < obj_max) {
-        var newP = new Particle();
-        newP.ang = p.ang;
-
-        if (p.ang == 0) {
-          newP.vang = 0;
-        } else {
-          newP.vang = (Math.random() < 0.5) ? -1 : 1;
-        }
-
-        newP.r = p.r;
-
-        if (p.vang == 0) {
-
-          newP.vr = 1;
-        } else {
-
-          newP.vr = 0;
-        }
-
-        newP.x = p.x;
-        newP.y = p.y;
-
-        newP.next = p.next;
-        p.next = newP;
-
-      }
-
-      var r = p.ang + p.vang;
-      p.r = p.r + p.vr;
-
-      var ang = Math.PI / 180 * r;
-
-      var ax = p.r * Math.cos(ang);
-      //console.log(ax);
-      var ay = p.r * Math.sin(ang);
-
-      var rr = Math.sqrt(ax * ax + ay * ay);
-
-      var anga = Math.PI / 180 * (r - (r - p.ang) / 2);
-
-      var px = rr * Math.cos(anga);
-      var py = rr * Math.sin(anga);
-
-      //After all this maths, finally draw!
-      context.beginPath();
-      context.strokeStyle = '#aaa';
-      context.moveTo(p.x, p.y);
-      context.quadraticCurveTo(px + oX, py + oY, ax + oX, ay + oY);
-      context.stroke();
-      context.closePath();
-
-      p.x = ax + oX;
-      p.y = ay + oY;
-      p.ang = r;
-
-      p = p.next;
-    }
-
-    amax = count;
-  }
-
-  //Clear the screen, 
-  var MouseDown = function(e) {
-    e.preventDefault();
-    context.fillStyle = 'rgba(255, 255, 255, 1.0)';
-    context.beginPath();
-    context.rect(0, 0, width, height);
-    context.closePath();
-    context.fill();
-    //Restart!
-    createParticles();
-  }
+/**
+ * Animate the canvas
+ */
+function animate() {
+	context.clearRect(0, 0, screenW, screenH);
+	$.each(stars, function() {
+		this.draw(context);
+	})
 }
 
-var app = new Transition();
-app.initialize();};
+/**
+ * Star
+ * 
+ * @param int x
+ * @param int y
+ * @param int length
+ * @param opacity
+ */
+function Star(x, y, length, opacity) {
+	this.x = parseInt(x);
+	this.y = parseInt(y);
+	this.length = parseInt(length);
+	this.opacity = opacity;
+	this.factor = 1;
+	this.increment = Math.random() * .03;
+}
+
+/**
+ * Draw a star
+ * 
+ * This function draws a start.
+ * You need to give the contaxt as a parameter 
+ * 
+ * @param context
+ */
+Star.prototype.draw = function() {
+	context.rotate((Math.PI * 1 / 10));
+	
+	// Save the context
+	context.save();
+	
+	// move into the middle of the canvas, just to make room
+	context.translate(this.x, this.y);
+	
+	// Change the opacity
+	if(this.opacity > 1) {
+		this.factor = -1;
+	}
+	else if(this.opacity <= 0) {
+		this.factor = 1;
+		
+		this.x = Math.round(Math.random() * screenW);
+		this.y = Math.round(Math.random() * screenH);
+	}
+		
+	this.opacity += this.increment * this.factor;
+	
+	context.beginPath()
+	for (var i = 5; i--;) {
+		context.lineTo(0, this.length);
+		context.translate(0, this.length);
+		context.rotate((Math.PI * 2 / 10));
+		context.lineTo(0, - this.length);
+		context.translate(0, - this.length);
+		context.rotate(-(Math.PI * 6 / 10));
+	}
+	context.lineTo(0, this.length);
+	context.closePath();
+	context.fillStyle = "rgba(255, 255, 200, " + this.opacity + ")";
+	context.shadowBlur = 5;
+	context.shadowColor = '#ffff33';
+	context.fill();
+	
+	context.restore();
+}

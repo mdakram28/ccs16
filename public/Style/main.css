@@ -124,13 +124,7 @@ img.question{
 a{
     font-size: 35px;
     color: #90000a;
-  transform: translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  backface-visibility: hidden;
-  -moz-osx-font-smoothing: grayscale;
-  transition-duration: 0.3s;
-  transition-property: transform;
-  transition-timing-function: ease-out;
+
 }
 
 a:hover{
@@ -145,6 +139,12 @@ a:hover{
 a:select{
     text-decoration: none;
     cursor: pointer;
+}
+
+.social_index{
+    font-size: 1em;
+    color: #1a1a1a;
+    
 }
 
 .social_media{
@@ -164,6 +164,16 @@ i.fa:hover{
     cursor: pointer;
 }
 
+.scroll-down{
+    font-weight: 200;
+    font-size: 20px;
+    text-align: center;
+    margin-top: -120px;
+    z-index:30;
+    margin-left:-30px;
+    border: none;
+    
+}
 
 footer{
     background-color: #ee202e;
