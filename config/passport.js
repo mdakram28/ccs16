@@ -227,7 +227,11 @@ module.exports = function(passport) {
             newUser.facebook.token = token;
             newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
             console.log(profile);
-            newUser.facebook.email = profile.emails[0].value;
+            if(profile.emails!=undefined && profile.mails[0]!=undefined){
+                newUser.facebook.email = profile.emails[0].value;
+              }else{
+                newUser.facebook.email = "NAN";
+              }
             newUser.authType = "facebook";
 
             newUser.save(function(err) {
