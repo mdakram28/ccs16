@@ -25,7 +25,7 @@ module.exports = function(app, passport) {
 						validUsers.push(user);
 					}
 				});
-			    res.locals.users = users;
+			    res.locals.users = validUsers;
 			    res.render("profile.ejs");
 			});
 		}else{
