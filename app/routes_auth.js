@@ -15,6 +15,16 @@ module.exports = function(app, passport) {
 	app.get('/profile',inter.isLoggedIn, function(req, res) {
 		if(req.isAdmin){
 			User.find({},function(err, users) {
+				var validUsers = [];
+				users.forEach(function(user){
+					if(user.authType=="local"){
+						if(user.local.verified==true){
+							validUsers.push(user);
+						}
+					}else{
+						validUsers.push(user);
+					}
+				});
 			    res.locals.users = users;
 			    res.render("profile.ejs");
 			});
