@@ -58,23 +58,24 @@ module.exports = function(app, passport) {
 		// if(!req.isAuthenticated()){
 		// 	return res.redirect('/');
 		// }
-		var regNo = req.body.regNo.toUpperCase();
+		var regNo = req.body.regNo || "";
+		regNo = regNo.toUpperCase();
 		var username = req.body.username;
 		var mobNo = req.body.mobNo;
 
-		if(!regNo || !username || !mobNo){
+		if(!username || !mobNo){
 			req.flash("detailsMessage","Please fill all the details.");
 			return res.redirect("/details");
 		}
 		//console.log("15BIT1234".match(/\d{2}\w{3}\d{4}/));
 		//var match_regNo = regNo.match(/\d{2}\w{3}\d{4}/);
-		if(!(/\d{2}\w{3}\d{4}/).test(regNo)){
+		if( regNo!="" && !(/\d{2}\w{3}\d{4}/).test(regNo)){
 			req.flash("detailsMessage","Invalid registration number. It should be in the format 15BIT1234.");
 			return res.redirect("/details");
 		}
 
 		//var match_username = username.match(/\w{5,15}/);
-		if(!(/[\w_$\-@.]{5,20}/).test(username)){
+		if(!(/[\w_\-@.]{5,20}/).test(username)){
 			req.flash("detailsMessage","Invalid username. It can contain alphanumric characters and _ $ - . @ characters. Length should be between 5 to 20 .");
 			return res.redirect("/details");
 		}
@@ -84,16 +85,29 @@ module.exports = function(app, passport) {
 			req.flash("detailsMessage","Invalid mobile Number.");
 			return res.redirect("/details");
 		}
-		req.user.profile.regNo = regNo;
-		req.user.profile.username = username;
-		req.user.profile.mobNo = mobNo;
-		req.user.detailsFilled = true;
-		req.user.save(function(err){
-			if(err){
-				req.flash("detailsMessage","Some error occurred while updatin user profile.");
-				return res.redirect("/details");
-			}
-			return res.redirect("/profile");
+		
+		User.findOne({"profile.username":{ $regex : new RegExp(username, "i") }},function(err, user) {
+		    if(err){
+		    	req.flash("detailsMessage","Some error occurred");
+		    	return res.redirect('/details');
+		    };
+		    if(user!=undefined && req.user._id!=user._id){
+		    	req.flash("detailsMessage","Username already exists.");
+		    	return res.redirect('/details');
+		    };
+		    console.log(user);
+		    
+		    req.user.profile.regNo = regNo;
+			req.user.profile.username = username;
+			req.user.profile.mobNo = mobNo;
+			req.user.detailsFilled = true;
+			req.user.save(function(err){
+				if(err){
+					req.flash("detailsMessage","Some error occurred while updating user profile.");
+					return res.redirect("/details");
+				}
+				return res.redirect("/profile");
+			});
 		});
 	});
 	// LOGOUT ==============================
@@ -107,29 +121,39 @@ module.exports = function(app, passport) {
 			if(err || !user){
 				return res.send("Verification failed due to url error. Please try again");
 			}
+			if(user.authType!="local"){
+				return res.send("Invalid request");
+			}
+			if(user.local.verified==true){
+				return res.send("User already verified");
+			}
 			if(user.local.vrfToken != req.query.token){
 				return res.send("Verification failed due to url error. Please try again");
 			}
+			var wasVerified = user.local.verified;
 			user.local.verified = true;
 			user.save(function(err){
 				if(err){
 					return res.send("Verification failed due to url error. Please try again");
 				}
+				console.log(req.user);
 				if(req.isAuthenticated()){
 					req.flash("detailsMessage","Email successfully verified");
 					res.redirect("/details");
 				}else{
-					req.flash("loginMessage","Email verified. Login to edit your details.");
-					res.redirect("/login");
+					req.skipPasswordCheck = true;
+					next();
+					// req.flash("loginMessage","Email verified. Login to edit your details.");
+					// res.redirect("/login");
 				}
 			});
 		});
-	});
-	// },passport.authenticate('local-login', {
-	// 	successRedirect : '/details', // redirect to the secure profile section
-	// 	failureRedirect : '/login', // redirect back to the signup page if there is an error
-	// 	failureFlash : true // allow flash messages
-	// }));
+//	});
+	},passport.authenticate('local-login', {
+		successRedirect : '/details', // redirect to the secure profile section
+		failureRedirect : '/login', // redirect back to the signup page if there is an error
+		failureFlash : true // allow flash messages
+	}));
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
