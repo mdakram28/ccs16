@@ -54,10 +54,10 @@ module.exports = function(app, passport) {
 		res.render("details",{message:req.flash("detailsMessage")});
 	});
 
-	app.post('/details',inter.isLoggedIn, function(req,res){
-		// if(!req.isAuthenticated()){
-		// 	return res.redirect('/');
-		// }
+	app.post('/details', function(req,res){
+		if(!req.isAuthenticated()){
+			return res.redirect('/');
+		}
 		var regNo = req.body.regNo || "";
 		regNo = regNo.toUpperCase();
 		var username = req.body.username;
