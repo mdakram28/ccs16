@@ -10,8 +10,9 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
 var path = require("path");
+var data = require("./app/data");
 
-var inter = require("./app/interceptor");
+var inter = require("./app/interceptor").init(data);
 
 var configDB = require('./config/database.js');
 
@@ -49,7 +50,7 @@ app.configure(function() {
 // routes ======================================================================
 require('./app/routes_auth.js')(app, passport); // load our routes and pass in our app and fully configured passport
 require('./app/routes_admin.js')(app, passport);
-require('./app/routes_game.js')(app, passport);
+require('./app/routes_game.js')(app, passport, data);
 
 // launch ======================================================================
 app.listen(port);

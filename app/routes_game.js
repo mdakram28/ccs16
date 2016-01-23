@@ -2,9 +2,40 @@ var User = require("./models/user");
 var inter = require("./interceptor");
 var Ques = require("./models/ques");
 
-var leaderBoard = [];
+//var leaderboard = [];
+var data;
 
-function updateRanks(){
+function move(oldIndex,newIndex){
+	console.log("moving",oldIndex,newIndex);
+	data.leaderboard.splice(newIndex,0,data.leaderboard.splice(oldIndex,1)[0]);
+}
+
+function updateRank(user){
+	var prevRank = 0;
+	for(var i=0;i<data.leaderboard.length;i++){
+		if(data.leaderboard[i].profile.username == user.profile.username){
+			prevRank = i;
+			break;
+		}
+	}
+	console.log(prevRank);
+	if(prevRank==0)return;
+	data.leaderboard[prevRank] = user;
+	var newRank = 0;
+	for(var i=prevRank-1;i>=0;i--){
+		 var diff = inter.difference(user,data.leaderboard[i]);
+		 console.log(user.status.currentQues,data.leaderboard[i].status.currentQues,diff);
+		 if(diff<0){
+		 	move(prevRank,i+1);
+		 	newRank = i+1;
+		 	break;
+		 }
+	}
+	if(newRank==0){
+		move(prevRank,0);
+	}
+	//console.log(data.leaderboard);
+	return newRank;
 }
 var totalQuestions;
 
@@ -28,9 +59,20 @@ function random(lower,upper){
 	return lower+Math.floor(Math.random()*(upper-lower));
 }
 
-module.exports = function(app,passport){
+module.exports = function(app,passport,data2){
+	data = data2;
 	app.get("/game",inter.isLoggedIn,function(req,res){
 		res.render("question");
+	});
+	
+	app.get("/api/getRank",inter.isLoggedInAPI,function(req,res){
+		User.find({},function(err,users){
+			for(var i=0;i<users.length;i++){
+				if(users.profile.username==req.user.profile.username){
+					
+				}
+			}
+		});
 	});
 
 	app.get("/api/currentQuestion",inter.isLoggedInAPI,function(req,res){
@@ -40,10 +82,24 @@ module.exports = function(app,passport){
 			}
 			console.log(ques);
 			return res.json({
+				quesNum : ques.quesNum,
 				story : ques.story,
 				ques : ques.ques
 			});
 		});
+	});
+	
+	app.get("/api/reset",inter.isLoggedIn,function(req,res){
+		req.user.status.currentQues = 1;
+		req.user.status.credits = 0;
+		req.user.status.lastSolvedTime = undefined;
+		req.user.save(function(err){
+			inter.refreshLeaderboard();
+		});
+	});
+	
+	app.get("/leaderboard",function(req,res){
+		res.json(data.leaderboard);
 	});
 
 	app.post("/api/attempt",inter.isLoggedInAPI,function(req,res,next){
@@ -97,12 +153,12 @@ module.exports = function(app,passport){
 			req.user.status.currentQues++;
 			req.user.status.attempts = 0;
 			req.user.status.lastSolveTime = new Date();
-			if(req.user.status.currentQues==req.data.totalQuestions+1){
-				return res.send("Game ended");
-			}
-			req.user.save();
+			req.user.save(function(err){
+				updateRank(req.user);
+			});
 			res.json({
-				success:true
+				success:true,
+				currentQues:req.user.status.currentQues
 			});
 	});
 }

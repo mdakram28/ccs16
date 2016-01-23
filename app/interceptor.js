@@ -1,6 +1,6 @@
 var User = require("./models/user");
 var Ques = require("./models/ques");
-var data = require("./data");
+var data;
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
 	if (!req.isAuthenticated())
@@ -63,11 +63,40 @@ function dbStart(){
 		data.totalQuestions = quess.length;
 		data.questions = quess;
 	});
+	refreshLeaderboard();
 }
 
+function refreshLeaderboard(){
+	User.find({},function(err,users){
+		users.sort(function(user1,user2){
+			var diff = difference(user2,user1);;
+			return diff;
+		});
+		data.leaderboard = users;
+		//console.log(users);
+	});
+}
+
+function difference(user1,user2){
+	if(!user1.status.lastSolveTime && !user2.status.lastSolveTime)return 0;
+	if(!user1.status.lastSolveTime)return -1;
+	if(!user2.status.lastSolveTime)return 1;
+	var diff = user1.status.currentQues - user2.status.currentQues;
+	if(diff!=0){
+		return diff;
+	}
+	return user2.status.lastSolveTime.valueOf() - user1.status.lastSolveTime.valueOf();
+}
 
 module.exports.isLoggedIn = isLoggedIn;
 module.exports.isAdmin = isAdmin;
 module.exports.isLoggedInAPI = isLoggedInAPI;
 module.exports.allRequests = allRequests;
 module.exports.dbStart = dbStart;
+module.exports.difference = difference;
+module.exports.refreshLeaderboard = refreshLeaderboard;
+
+module.exports.init = function(data2){
+	data = data2;
+	return module.exports;
+}
