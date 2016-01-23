@@ -25,12 +25,16 @@
 
 	<!-- LOGIN FORM -->
 	<form action="/details" method="post">
+		<small><p class="text-info"></p></small>
 		<div class="form-group">
 			
-			<input type="text" placeholder="Registration Number" value="<%= user.profile.regNo||"" %>" name="regNo">
+			<input type="text" placeholder="Registration Number(optional)" value="<%= user.profile.regNo||"" %>" name="regNo">
 		</div>
 		<div class="form-group">
 			<input type="text" style="text-transform:none" placeholder="User Name" value="<%= user.profile.username||"" %>" name="username">
+		</div>
+		<div class="form-group">
+			<input type="text" style="text-transform:none" placeholder="Full Name" value="<%= user.profile.fullName||"" %>" name="fullName">
 		</div>
 		<div class="form-group">
 			<input type="text" placeholder="Mobile Number" value="<%= user.profile.mobNo||"" %>" name="mobNo">

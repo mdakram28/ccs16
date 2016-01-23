@@ -8,7 +8,8 @@ var quesSchema = mongoose.Schema({
   hint:String,
   story:String,
   closeAnswers:[String],
-  answer:String
+  answer:String,
+  credits:{type:Number,default:1000}
 });
 
 // create the model for users and expose it to our app

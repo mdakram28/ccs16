@@ -14,6 +14,29 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	///removeAccount
+	app.get('/admin/removeAccount',inter.isLoggedInAPI,inter.isAdmin,function(req,res){
+		var id = req.query.id;
+		if(!id){
+			return res.send(500);
+		}
+		
+		User.findOne({_id:id},function(err,user){
+			if(err){
+				return res.send("Some error occurred");
+			}
+			if(!user){
+				return res.send("User not found");
+			}
+			user.remove(function(err){
+				if(err){
+					return res.send("Some error occurred");
+				}
+				return res.send("User removed");
+			});
+		});
+	});
+	
   app.get("/admin/editQuestions",inter.isLoggedIn,inter.isAdmin,function(req,res){
 		res.locals.message = req.flash("editQuestionsMessage");
     Ques.find({},function(err,quess){

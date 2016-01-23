@@ -17,6 +17,7 @@ var configDB = require('./config/database.js');
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
+mongoose.connection.on('connected', inter.dbStart);
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -48,6 +49,7 @@ app.configure(function() {
 // routes ======================================================================
 require('./app/routes_auth.js')(app, passport); // load our routes and pass in our app and fully configured passport
 require('./app/routes_admin.js')(app, passport);
+require('./app/routes_game.js')(app, passport);
 
 // launch ======================================================================
 app.listen(port);

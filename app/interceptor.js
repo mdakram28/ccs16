@@ -1,4 +1,6 @@
-
+var User = require("./models/user");
+var Ques = require("./models/ques");
+var data = require("./data");
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
 	if (!req.isAuthenticated())
@@ -10,6 +12,7 @@ function isLoggedIn(req, res, next) {
 		username : req.user.profile.username,
 		regNo : req.user.profile.regNo,
 		mobNo : req.user.profile.mobNo,
+		fullName : req.user.profile.fullName,
 		authType : req.user.authType
 	}
 	if(userInfo.authType=="local"){
@@ -18,9 +21,6 @@ function isLoggedIn(req, res, next) {
 	}else if(userInfo.authType=="facebook"){
 		userInfo.email = req.user.facebook.email;
 		userInfo.password = req.user.facebook.token;
-	}else if(userInfo.authType=="twitter"){
-		userInfo.email = "";
-		userInfo.password = req.user.twitter.token;
 	}else if(userInfo.authType=="google"){
 		userInfo.email = req.user.google.email;
 		userInfo.password = req.user.google.token;
@@ -53,7 +53,16 @@ function allRequests(req,res,next){
 	}else{
 		req.isAdmin = res.locals.isAdmin = false;
 	}
+	req.data = data;
 	next();
+}
+
+function dbStart(){
+	Ques.find({},function(err,quess){
+		if(err)throw err;
+		data.totalQuestions = quess.length;
+		data.questions = quess;
+	});
 }
 
 
@@ -61,3 +70,4 @@ module.exports.isLoggedIn = isLoggedIn;
 module.exports.isAdmin = isAdmin;
 module.exports.isLoggedInAPI = isLoggedInAPI;
 module.exports.allRequests = allRequests;
+module.exports.dbStart = dbStart;

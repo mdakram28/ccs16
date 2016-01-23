@@ -7,7 +7,8 @@ var userSchema = mongoose.Schema({
     profile : {
       regNo : String,
       username : String,
-      mobNo : String
+      mobNo : String,
+      fullName : String
     },
     authType : String,
     detailsFilled : { type: Boolean, default: false },
@@ -33,7 +34,9 @@ var userSchema = mongoose.Schema({
       currentQues:{type:Number,default:1},
       attempts:{type:Number,default:0},
       credits:{type:Number,default:0},
-      hints:[Number]
+      hints:[Number],
+      rank:{type:Number,default:0},
+      lastSolveTime:Date
     },
     logs:{
       attempsLog:[{

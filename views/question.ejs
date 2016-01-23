@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
+  <title>RIDDLER</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="/JavaScript/angular.min.js"></script>
+  <script src="/JavaScript/game.js"></script>
+  <style>
+      *{
+          border-radius:0px !important;
+      }
+      body{
+          background-color:rgb(26, 26, 26);
+      }
+      #attemptForm button{
+        width: 100%;
+      }
+      #content{
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      #content > div{
+        height: 500px;
+      }
+  </style>
+</head>
+<body ng-app="riddlerApp" ng-controller="riddlerController">
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-md-12">
+    			<nav class="navbar navbar-inverse" role="navigation">
+    				<div class="navbar-header">
+
+    					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+    						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+    					</button> <a class="navbar-brand" href="#">Brand</a>
+    				</div>
+
+    			</nav>
+    			<div class="row" id="content">
+    				<div class="col-md-6 well" id="story">
+    				</div>
+    				<div class="col-md-6 well" id="ques">
+    				</div>
+    			</div>
+    			<div class="row" id="attemptForm">
+    				<div class="col-md-10">
+    							<input type="text" class="form-control" id="attemptField" />
+    				</div>
+            <div class="col-md-2">
+              <button class="btn btn-default">
+                Submit
+              </button>
+            </div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</body>
+</html>

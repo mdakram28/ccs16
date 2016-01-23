@@ -33,16 +33,6 @@ module.exports = function(app, passport) {
 		}
 	});
 
-	///removeAccount
-	app.get('/removeAccount',inter.isLoggedIn,function(req,res){
-		User.findOne({_id:req.user._id}).remove(function(err){
-			if(err){
-				return res.send("Some error occurred");
-			}
-			req.flash("indexMessage","Account removed");
-			res.redirect("/");
-		});
-	});
 
 	//details page
 
@@ -61,10 +51,16 @@ module.exports = function(app, passport) {
 		var regNo = req.body.regNo || "";
 		regNo = regNo.toUpperCase();
 		var username = req.body.username;
+		var fullName = req.body.fullName;
 		var mobNo = req.body.mobNo;
 
-		if(!username || !mobNo){
+		if(!username || !mobNo || !fullName){
 			req.flash("detailsMessage","Please fill all the details.");
+			return res.redirect("/details");
+		}
+		
+		if(!(/^[a-zA-Z ]+$/).test(fullName)){
+			req.flash("detailsMessage","Invalid Name , Name cannot contain characters.");
 			return res.redirect("/details");
 		}
 		//console.log("15BIT1234".match(/\d{2}\w{3}\d{4}/));
@@ -100,6 +96,7 @@ module.exports = function(app, passport) {
 		    req.user.profile.regNo = regNo;
 			req.user.profile.username = username;
 			req.user.profile.mobNo = mobNo;
+			req.user.fullName = fullName;
 			req.user.detailsFilled = true;
 			req.user.save(function(err){
 				if(err){
