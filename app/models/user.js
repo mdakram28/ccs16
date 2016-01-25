@@ -43,8 +43,9 @@ var userSchema = mongoose.Schema({
         quesNum : Number,
         attemps:[String]
       }]
-    }
-
+    },
+    followers:[String],
+    invitedEmail:String
 });
 
 // generating a hash

@@ -15,7 +15,7 @@ module.exports = function(app, passport) {
 	});
 
 	///removeAccount
-	app.get('/admin/removeAccount',inter.isLoggedInAPI,inter.isAdmin,function(req,res){
+	app.get('/admin/removeAccount',inter.isLoggedInAPI,function(req,res){
 		var id = req.query.id;
 		if(!id){
 			return res.send(500);
@@ -111,6 +111,7 @@ module.exports = function(app, passport) {
 		ques.ques = req.body.ques;
 		ques.answer = req.body.answer;
 		ques.hint = req.body.hint;
+		ques.hintCost = (req.body.hintCost =="" || !req.body.hintCost) ? 0 : req.body.hintCost;
 		ques.story = req.body.story;
 		ques.closeAnswers = req.body.closeAnswers.split("\n");
 				console.log(ques);

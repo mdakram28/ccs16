@@ -5,6 +5,9 @@
 var serverConfig = require("./serverFiles/config");
 var express  = require('express');
 var app      = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+app.io = io;
 var port     = process.env.PORT || serverConfig.port;
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -20,7 +23,7 @@ var configDB = require('./config/database.js');
 mongoose.connect(configDB.url); // connect to our database
 mongoose.connection.on('connected', inter.dbStart);
 
-require('./config/passport')(passport); // pass passport for configuration
+require('./config/passport')(passport,data); // pass passport for configuration
 
 app.configure(function() {
 	app.use(express.static(path.join(__dirname, 'public')));
@@ -48,10 +51,10 @@ app.configure(function() {
 });
 
 // routes ======================================================================
-require('./app/routes_auth.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./app/routes_auth.js')(app, passport, data); // load our routes and pass in our app and fully configured passport
 require('./app/routes_admin.js')(app, passport);
 require('./app/routes_game.js')(app, passport, data);
 
 // launch ======================================================================
-app.listen(port);
+http.listen(port);
 console.log('The magic happens on port ' + port);

@@ -5,12 +5,24 @@
   <title>RIDDLER</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <script src="/bower_components/jquery/dist/jquery.js"></script>
-  <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="/JavaScript/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+  <script>
+    var socketToken = "<%= socketToken %>";
+    var currentQues = "<%- currentQues %>";
+    var rank = <%- rank %>;
+    var credits = <%- credits %>
+    var friends = <%- JSON.stringify(friends) %>;
+    var username = "<%= user.profile.username %>";
+  </script>
+<script src="/socket.io/socket.io.js"></script>
   <script src="/JavaScript/game.js"></script>
+  
   <style>
       *{
           border-radius:0px !important;
@@ -18,15 +30,22 @@
       body{
           background-color:rgb(26, 26, 26);
       }
-      #attemptForm button{
-        width: 100%;
-      }
       #content{
         padding-left: 16px;
         padding-right: 16px;
       }
-      #content > div{
-        height: 500px;
+      #attemptForm #submit{
+        cursor:pointer;
+      }
+      #feedsColumn{
+        background-color:#fff;
+        height:500px;
+      }
+      #userDetails{
+        height: 50px;
+        padding: 15px 15px;
+        font-size: 15px;
+        line-height: 20px;
       }
   </style>
 </head>
@@ -39,28 +58,114 @@
 
     					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
     						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-    					</button> <a class="navbar-brand" href="#">Brand</a>
+    					</button> <a class="navbar-brand" href="#">RIDDLER - 5.0</a>
     				</div>
+    					<span class="pull-right" id="userDetails">
+    					  <p class="text-primary">
+    					    <strong><%= user.profile.fullName %></strong>
+    					    - <%= user.profile.username %>
+    					   </p>
+    					 </span>
 
     			</nav>
     			<div class="row" id="content">
-    				<div class="col-md-6 well" id="story">
+    				<div class="col-md-9 well">
+    				  <h2 style="display:inline"><strong>RANK : </strong>{{rank}}</h2>
+    				  <span class="pull-right">
+    				    <h3 style="display:inline">{{credits}}</h3>
+    				    <button id="getHintButton" type="button" class="btn btn-info">{{ques.hintBought?'Show hint':('Buy hint (-'+ques.credits+')')}}
+    				    </button>
+    				  </span>
+    				  <div id="ques" class="well">
+    				    
+    				  </div>
+        			  <form id="answerForm">
+        			<div class="input-group" id="attemptForm">
+        			    <input type="text" class="form-control" placeholder="Enter yoyur answer here" aria-describedby="basic-input">
+        			    <span id="submit" class="input-group-addon" id="basic-input2"><i class="fa fa-arrow-right"></i></span> 
+        			  
+        			</div>
+        			</form>
     				</div>
-    				<div class="col-md-6 well" id="ques">
+    				<div class="col-md-3" id="feedsColumn">
+    				  <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#friends">Friends</a></li>
+                <li><a data-toggle="tab" href="#addFriend">Add Friend</a></li>
+                <li><a data-toggle="tab" href="#invite">Invite</a></li>
+              </ul>
+              
+              <div class="tab-content">
+                <div id="friends" class="tab-pane fade in active">
+                  <h3>friends</h3>
+                  <div ng-repeat="friend in friends">
+                    
+  <button class="btn btn-danger btn-xs" ng-click="removeFriend(friend.username,$index)">x remove</button>
+                    <strong>{{friend.fullName}}</strong> {{friend.username}} <span class="pull-right badge">{{friend.rank}}</span>
+                  </div>
+                </div>
+                <div id="addFriend" class="tab-pane fade">
+                  
+                  <form class="form-group" id="addFriendForm">
+                    <label for="friendsUsernameInput">Friends username :</label>
+                    <input type="text" class="form-control" id="friendsUsernameInput">
+                    
+                  </form>
+
+<div class="well well-md" ng-repeat="friend in searchResults">
+  <strong>{{friend.fullName}}</strong> {{friend.username}} 
+  <button style="margin-top:-7px;margin-right:-7px" ng-click="addFriend(friend.username,$index)" type="button" class="btn btn-success pull-right"><i class="fa fa-plus"></i></button>
+</div>
+
+                </div>
+                <div id="invite" class="tab-pane fade in active">
+                  <h3>Invite Non-Vitian Account</h3>
+                  <form class="form-group" id="inviteForm">
+                    <label for="inviteInput">Friends email :</label>
+                    <input type="text" class="form-control" id="inviteInput">
+                    
+                  </form>
+                  <small><strong>Warning</strong> : You will get only one chance to invite email . If you invite a wrong email address then you might lose your invite forever.</small>
+                </div>
+              </div>
+              
     				</div>
-    			</div>
-    			<div class="row" id="attemptForm">
-    				<div class="col-md-10">
-    							<input type="text" class="form-control" id="attemptField" />
-    				</div>
-            <div class="col-md-2">
-              <button class="btn btn-default">
-                Submit
-              </button>
-            </div>
     			</div>
     		</div>
     	</div>
     </div>
+    
+    <div class="modal fade" id="storyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Episode</h4>
+      </div>
+      <div class="modal-body" id="story">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="hintModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">HINT</h4>
+      </div>
+      <div class="modal-body">
+        {{hint}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

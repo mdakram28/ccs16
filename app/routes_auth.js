@@ -2,7 +2,7 @@ var User = require("./models/user");
 
 var inter = require("./interceptor");
 
-module.exports = function(app, passport) {
+module.exports = function(app, passport, data) {
 
 // normal routes ===============================================================
 
@@ -87,7 +87,7 @@ module.exports = function(app, passport) {
 		    	req.flash("detailsMessage","Some error occurred");
 		    	return res.redirect('/details');
 		    };
-		    if(user!=undefined && req.user._id!=user._id){
+		    if(user!=undefined && req.user._id.toString()!=user._id.toString()){
 		    	req.flash("detailsMessage","Username already exists.");
 		    	return res.redirect('/details');
 		    };
@@ -96,13 +96,14 @@ module.exports = function(app, passport) {
 		    req.user.profile.regNo = regNo;
 			req.user.profile.username = username;
 			req.user.profile.mobNo = mobNo;
-			req.user.fullName = fullName;
+			req.user.profile.fullName = fullName;
 			req.user.detailsFilled = true;
 			req.user.save(function(err){
 				if(err){
 					req.flash("detailsMessage","Some error occurred while updating user profile.");
 					return res.redirect("/details");
 				}
+				data.leaderboard.push(req.user);
 				return res.redirect("/profile");
 			});
 		});
@@ -205,7 +206,7 @@ module.exports = function(app, passport) {
 		app.get('/auth/google/callback',
 			passport.authenticate('google', {
 				successRedirect : '/profile',
-				failureRedirect : '/'
+				failureRedirect : '/login'
 			}));
 };
 

@@ -5,12 +5,45 @@
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<link rel="stylesheet" href="Style/main.css" type="text/css">
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="/JavaScript/angular.min.js"></script>
     <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
 	<style>
 		/*body 		{ padding-top:80px; word-wrap:break-word; }*/
 	</style>
+	<script>
+		var inviteForm = "#inviteForm";
+		var http;
+		
+		function invite(){
+		console.log("sdsd");
+		  var email = $(inviteInput).val();
+		  var req = http.get("/api/invite?email="+encodeURIComponent(email));
+		  req.success(function(data){
+		    if(!data.success){
+		      if(data.alert){
+		        alert(data.message);
+		      }else{
+		        alert(data.message);
+		      }
+		    }else{
+		      alert(data.message);
+		    }
+		  });
+		  req.error(function(data){
+		    alert("Error.")
+		  });
+		};
+		
+		var app = angular.module('riddlerApp',[]);
+		app.controller('riddlerController',function($scope,$http,$httpParamSerializerJQLike){
+			http = $http;
+			$(inviteForm).submit(invite);
+		});
+		
+	</script>
 </head>
-<body>
+<body ng-app="riddlerApp" ng-controller="riddlerController">
 <div class="container">
 	<div class="text-center">
 		<h2 style="color:#717171; padding-top:30px"><%= 25-(new Date()).getDate() %> DAYS TO GO</h2>
@@ -41,6 +74,14 @@
 				</p>
 
 			</div>
+		</div>
+		<div class="col-sm-6">
+			<h2>Invite Non-Vitian Account</h2>
+                  <form class="form-group" id="inviteForm">
+                    <label for="inviteInput" style="color: #ee202e">Friends email :</label>
+                    <input type="text" class="form-control" id="inviteInput">
+                  </form>
+                  <small><strong>Warning</strong> : You will get only one chance to invite email . If you invite a wrong email address then you might lose your invite forever.</small>
 		</div>
 		<% if(isAdmin){ %>
 		<div class="col-sm-6" style="color: #ee202e">

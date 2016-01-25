@@ -1,5 +1,6 @@
 module.exports = {
     totalQuestions : 0,
     questions : [],
-    leaderboard : []
+    leaderboard : [],
+    verifiedEmails:[]
 }

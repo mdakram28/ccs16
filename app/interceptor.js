@@ -46,10 +46,15 @@ function isAdmin(req,res,next){
   next();
 }
 
+var admins = [
+	"MDAKRAM28@GMAIL.COM",
+	"ACCOUNTS@VULN.IN",
+	"SARDANAAMAN@GMAIL.COM"
+	];
 function allRequests(req,res,next){
 	res.locals.isAuthenticated = req.isAuthenticated();
 	if(res.locals.isAuthenticated && req.user.authType=="local"){
-		req.isAdmin = res.locals.isAdmin = req.user.local.email.toUpperCase()=="MDAKRAM28@GMAIL.COM";
+		req.isAdmin = res.locals.isAdmin = (admins.indexOf(req.user.local.email.toUpperCase())>=0);
 	}else{
 		req.isAdmin = res.locals.isAdmin = false;
 	}
@@ -68,6 +73,11 @@ function dbStart(){
 
 function refreshLeaderboard(){
 	User.find({},function(err,users){
+		for(var i=users.length-1;i>=0;i--){
+			if(!users[i].detailsFilled){
+				users.splice(i,1);
+			}
+		}
 		users.sort(function(user1,user2){
 			var diff = difference(user2,user1);;
 			return diff;

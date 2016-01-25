@@ -4,3 +4,5 @@ module.exports = {
 	'url' : 'mongodb://localhost/riddler' // looks like mongodb://<user>:<pass>@mongo.onmodulus.net:27017/Mikha4ot
 
 };
+
+//db.users.update({}, {$set:{ detailsFilled:false }},{multi:true} )

@@ -7,12 +7,14 @@
     "ejs": "~0.8.5",
     "emailjs": "^1.0.1",
     "express": "~3.4.4",
+    "express.io": "latest",
     "mongoose": "~3.8.1",
     "passport": "~0.1.17",
     "passport-facebook": "~1.0.2",
     "passport-google-oauth": "~0.1.5",
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
-    "rand-token": "^0.2.1"
+    "rand-token": "^0.2.1",
+    "socket.io": "^1.4.4"
   }
 }
