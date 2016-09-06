@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
+	<title>CCS16 - questions edit</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+	<style>
+	/*body 		{ padding-top:80px; }*/
+	.alert.alert-success{
+		position: absolute;
+		z-index: 9999;
+	}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<% if (message.length > 0) { %>
+		<div id="message" class="alert alert-success text-center" style="margin-left:50px"><%= message %></div>
+		<% } %>
+        <h4><a href="/profile">Profile</a></h4>
+        <div class="row">
+            <% categories.forEach(function(cat){ %>
+                <h1><%= cat.toUpperCase() %></h1>
+                <table width="100%" border="2px">
+                    <tr>
+                        <th>Ques. No.</th>
+                        <th>User</th>
+                        <th>Attempt</th>
+                        <th>Time of attempt</th>
+                    </tr>
+                    <% quessCat[cat].forEach(function(ques){ %>
+                        <% users.forEach(function(u){ %>
+                            <%
+                            var attempt = u.attempts[ques._id.toString()];
+                            if(attempt){
+                            %>
+                                <tr>
+                                    <td><%= ques.qno %></td>
+                                    <td><a href="/admin/user/<%= u._id.toString() %>"><%= u.details.regNo %></a></td>
+                                    <td><%= attempt.ans %></td>
+                                    <td><%= attempt.time.getHours()+":"+attempt.time.getMinutes()+":"+attempt.time.getSeconds() %></td>
+                                </tr>
+                            <% } %>
+                        <% }) %>
+                    <% }) %>
+                </table>
+            <% }) %>
+        </div>
+	</div>
+	<script type="text/javascript">
+	setTimeout(function(){
+		document.getElementById("message").remove();
+	},5000);
+	</script>
+</body>
+</html>

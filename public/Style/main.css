@@ -2,7 +2,7 @@
     font-family: PierSans;
     src: url("../fonts/pier-bold.otf");
     src: url("../fonts/PierSans.otf");
-    
+
 }
 * {
   margin: 0;
@@ -58,7 +58,7 @@ h1.title{
 
 h2{
     color: #ee202e;
-    
+
 }
 
 .title{
@@ -116,11 +116,11 @@ img.question{
 
 .page-wrap {
   min-height: 100%;
-  margin-bottom: -154px; 
+  margin-bottom: -154px;
 }
 
 
- 
+
 a{
     font-size: 35px;
     color: #90000a;
@@ -130,10 +130,10 @@ a{
 a:hover{
     transition: 0.2s;
     color: #fff;
-    text-decoration: none; 
+    text-decoration: none;
     cursor: pointer;
     transition: 0.5s;
-    
+
 }
 
 a:select{
@@ -144,14 +144,14 @@ a:select{
 .social_index{
     font-size: 1em;
     color: #1a1a1a;
-    
+
 }
 
 .social_media{
     display: inline-block;
     margin: 40px auto 0 auto;
-    
-    
+
+
 }
 
 i.fa{
@@ -172,7 +172,7 @@ i.fa:hover{
     z-index:30;
     margin-left:-30px;
     border: none;
-    
+
 }
 
 footer{
@@ -261,7 +261,7 @@ h1{
     border-color:#fff;
     margin:0.3em;
     background-color: transparent;
-    
+
     opacity:0.3;
     text-transform:uppercase;
 }
@@ -291,16 +291,16 @@ h1{
 .form-group a:hover{
     text-decoration: none;
     color:white;
-    cursor: pointer; 
-    cursor: hand; 
+    cursor: pointer;
+    cursor: hand;
     -webkit-transition: color 0.75s;
 }
 
-input, select{
+input, select, textarea{
     color: #aaa;
     opacity:0.8;
     outline:none;
- 
+
 }
 
 .form-group input:last-child{
@@ -321,8 +321,8 @@ input, select{
 }
 
 
-.form-group input{
-    width:100%;  
+.form-group input, .form-group textarea{
+    width:100%;
     padding:2.5%;
     padding-left:0;
     padding-bottom:1.5%;
@@ -333,7 +333,7 @@ input, select{
     border: none;
     background-color: transparent;
     color: #fff;
-    
+
 }
 
 .signup{
@@ -343,12 +343,12 @@ input, select{
 
 #form .fa{
     color: #aaa;
-    
+
 }
 
 #form .fa:hover{
     color: #fff;
-    
+
 }
 
 ::selection {
@@ -370,7 +370,7 @@ input, select{
 
 .submit-profile:hover{
     color: #fff;
-    
+
 }
 
 .remove-profile{
@@ -382,10 +382,10 @@ input, select{
 
 .remove-profile:hover{
     color: #fff;
-    
+
 }
 
-.white-bg 
+.white-bg
 {
     background-color: #355e68;
     padding: 0 3px 0 4px; /*add this if you want a bit of space around the text*/
@@ -400,9 +400,7 @@ h1.title{
     letter-spacing: 15px;
     padding: 20px 0 0 30px;
 }
-    
+
 
 
 }
-
-

@@ -4,19 +4,19 @@
     <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
     <meta charset="utf-8">
   <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">   -->
-    <title>RIDDLER 5.0</title>
+    <title>CSIVIT - CCS16</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="Style/main.css" type="text/css">
     <link rel="stylesheet" href="Style/jquery.countdown.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="Style/mouseparallax.css">
-    
+
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="JavaScript/jquery.countdown.js"></script>
     <script src="JavaScript/main.js"></script>
     <script src="JavaScript/canvas.js"></script>
-    
+
 </head>
 
 
@@ -25,56 +25,50 @@
 		<div class="alert alert-success"><center><%= message %></center></div>
 	<% } %>
 
-    <div class="page-wrap">   
-    
+    <div class="page-wrap">
+
     <div class="container">
     <div class="row">
         <div class="col-md-12 col-lg-12 col-sm-12">
         <img alt="?" class="question img-responsive center-block" src="media/question.png">
-        <h1 class="title text-center">R I D $ L E R</h1>
+        <h1 class="title text-center">CSIVIT CCS16</h1>
         <div class="row text-center scroll-down">
         <a href="#footer"><i class="fa fa-angle-down"></i></a>
         </div>
-        </div> 
-    </div>
-    </div>
-    
-    <div class="container">
-    <div class="row">
-        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-       
-        <div id="countdown" class="countdownHolder"></div>
         </div>
     </div>
     </div>
     </div>
-    
+
     <footer class="foot" id="footer">
-        <div class="login container">    
+        <div class="login container">
         <div class="row">
             <div class="column col-lg-12 col-md-12 col-sm-12 sol-xs-12 text-center" style="padding-top:20px">
 	        	<% if(!isAuthenticated){ %>
 	            <a id="loginButton">Login/Register</a>
+                <form action="/auth/adminLogin" method="post">
+                    <input type="submit" value="admin Login">
+                </form>
 	            <% }else{ %>
 	            <a id="logoutButton">Logout</a>
 	            <% } %>
             </div>
         </div>
-        </div> 
+        </div>
 
-        <div class="container">    
+        <div class="container">
         <div class="row" >
             <div class="social_media column col-lg-12 col-md-12 col-sm-12 sol-xs-12 text-center">
                 <ul style="margin-left:-40px">
-                <li><a class="social_index" href="https://twitter.com/csivitu"><i class="fa fa-twitter"></i></a></li> 
-                <li><a class="social_index" href="https://www.facebook.com/csivit/?ref=ts&fref=ts" ><i class="fa fa-facebook"></i></a></li>    
-                <li><a class="social_index" href="https://plus.google.com/116420586753521131941"><i class="fa fa-google-plus" ></i></a></li>    
+                <li><a class="social_index" href="https://twitter.com/csivitu"><i class="fa fa-twitter"></i></a></li>
+                <li><a class="social_index" href="https://www.facebook.com/csivit/?ref=ts&fref=ts" ><i class="fa fa-facebook"></i></a></li>
+                <li><a class="social_index" href="https://plus.google.com/116420586753521131941"><i class="fa fa-google-plus" ></i></a></li>
                 </ul>
-            </div>    
+            </div>
         </div>
         </div>
-    </footer>   
-        
+    </footer>
+
 <script>
 
 $('a[href*="#"]:not([href="#"])').click(function() {
@@ -90,16 +84,15 @@ $('a[href*="#"]:not([href="#"])').click(function() {
     }
   });
 
- 
  $("#loginButton").click(function(){
- 	window.location.pathname = "/login";
+ 	window.location.pathname = "/auth/google";
  });
- 
+
  $("#logoutButton").click(function(){
  	window.location.pathname = "/logout";
  });
-    
+
 </script>
-    
+
 </body>
 </html>

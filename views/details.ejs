@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head><link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
-	<title>RIDDLER - Details</title>
+	<title>CCS16 - Details</title>
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	  <link rel="stylesheet" href="Style/main.css" type="text/css">
@@ -27,20 +27,24 @@
 	<form action="/details" method="post">
 		<small><p class="text-info"></p></small>
 		<div class="form-group">
-			
-			<input type="text" placeholder="Registration Number(optional)" value="<%= user.profile.regNo||"" %>" name="regNo">
+
+			<input type="text" placeholder="Registration Number(optional)" value="<%= user.details.regNo||"" %>" name="regNo">
 		</div>
 		<div class="form-group">
-			<input type="text" style="text-transform:none" placeholder="User Name" value="<%= user.profile.username||"" %>" name="username">
+			<input type="text" style="text-transform:none" placeholder="Full Name" value="<%= user.details.fullName||"" %>" name="fullName">
 		</div>
 		<div class="form-group">
-			<input type="text" style="text-transform:none" placeholder="Full Name" value="<%= user.profile.fullName||"" %>" name="fullName">
+			<input type="text" placeholder="Mobile Number" value="<%= user.details.mobNo||"" %>" name="mobNo">
 		</div>
 		<div class="form-group">
-			<input type="text" placeholder="Mobile Number" value="<%= user.profile.mobNo||"" %>" name="mobNo">
+			<input type="text" placeholder="Experience" value="<%= user.details.experience||"" %>" name="experience">
+		</div>
+		<div class="form-group">
+			<textarea placeholder="Projects" name="projects"><%= user.details.projects||"" %></textarea>
 		</div>
 		<span style:"padding: 40px"></span>
-		<button type="submit" class="submit-profile">Update my profile</button>
+		<a style="float:left" type="submit" class="submit-profile" href="/profile">cancel</a>
+		<button style="float:right" type="submit" class="submit-profile">Update my profile</button>
 	</form>
 
 

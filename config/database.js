@@ -1,7 +1,7 @@
 // config/database.js
 module.exports = {
 
-	'url' : 'mongodb://localhost/riddler' // looks like mongodb://<user>:<pass>@mongo.onmodulus.net:27017/Mikha4ot
+	'url' : 'mongodb://127.0.0.1/ccs16' // looks like mongodb://<user>:<pass>@mongo.onmodulus.net:27017/Mikha4ot
 
 };
 

@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
-	<title>RIDDLER - questions edit</title>
+	<title>CCS16 - questions edit</title>
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 	<style>
@@ -14,46 +14,42 @@
 	</style>
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<% if (message.length > 0) { %>
 			<div id="message" class="alert alert-success text-center" style="margin-left:50px"><%= message %></div>
 			<% } %>
-
-			<div class="col-sm-6" id="edit">
+            <h4><a href="/profile">&lt;-- Profile</a></h4>
+			<div class="col-sm-4" id="edit">
 
 				<h1><span class="fa fa-sign-in"></span> Add new Question</h1>
 
 				<!-- LOGIN FORM -->
 				<form action="/admin/addQuestion" method="post">
+
+					<div class="form-group">
+						<label>Category</label>
+						<select value="<%- quess.length+1 %>" class="form-control" name="category">
+                            <% categories.forEach(function(category){ %>
+                                <option value="<%= category %>"><%= category.substr(0,1).toUpperCase() + category.substr(1) %></option>
+                            <% }) %>
+                        </select>
+					</div>
 					<div class="form-group">
 						<label>Question Number</label><small> (Leave blank to append)</small>
-						<input type="Number" value="<%- quess.length+1 %>" class="form-control" name="quesNum">
+						<input type="Number" value="<%- quess.length+1 %>" class="form-control" name="qno">
 					</div>
 					<div class="form-group">
 						<label>Question</label>
 						<textarea class="form-control" name="ques"></textarea>
 					</div>
 					<div class="form-group">
+						<label>Options</label>
+						<textarea class="form-control" name="options"></textarea>
+					</div>
+					<div class="form-group">
 						<label>Answer</label>
 						<input type="text"  class="form-control" name="answer">
 					</div>
-					<div class="form-group">
-						<label>Hint</label>
-						<textarea class="form-control" name="hint"></textarea>
-					</div>
-					<div class="form-group">
-						<label>Hint Cost</label>
-						<input class="form-control" name="hintCost"></input>
-					</div>
-					<div class="form-group">
-						<label>Story</label>
-						<textarea  class="form-control" name="story"></textarea>
-					</div>
-					<div class="form-group">
-						<label>Close answers </label><small> (Write answers in different lines)</small>
-						<textarea class="form-control" name="closeAnswers"></textarea>
-					</div>
-
 					<button type="submit" class="btn btn-warning btn-lg">Add</button>
 				</form>
 
@@ -61,30 +57,28 @@
 
 			</div>
 
-			<div class="col-sm-6">
-
-				<table style="width:100%" border="2px">
-					<tr>
-						<th>Ques. No.</th>
-						<th>Question</th>
-						<th>Hint</th>
-						<th>Story</th>
-						<th>Answer</th>
-						<th>Close Answers</th>
-						<th></th>
-					</tr>
-					<% quess.forEach(function(ques,index){ %>
-					<tr>
-						<td><%= ques.quesNum %></td>
-						<td><%= ques.ques %></td>
-						<td><%= ques.hint %></td>
-						<td><%= ques.story %></td>
-						<td><%= ques.answer %></td>
-						<td><%= ques.closeAnswers.join(" , ") %></td>
-						<td><a href="/admin/removeQuestion?quesNum=<%- ques.quesNum %>" class="btn btn-warning btn-small">Delete</a></td>
-					</tr>
-					<% }) %>
-				</table>
+			<div class="col-sm-8">
+                <% categories.forEach(function(cat){ %>
+                    <h3><%= cat.toUpperCase() %></h3>
+                    <table style="width:100%" border="2px">
+    					<tr>
+    						<th>Ques. No.</th>
+    						<th>Question</th>
+    						<th>Choices</th>
+    						<th>Answer</th>
+    						<th></th>
+    					</tr>
+    					<% quess.forEach(function(ques,index){ if(ques.category!=cat)return; %>
+    					<tr>
+    						<td><%= ques.qno %></td>
+    						<td><%= ques.ques %></td>
+                            <td><%= ques.choices %></td>
+    						<td><%= ques.answer %></td>
+    						<td><a href="/admin/removeQuestion?qid=<%- ques._id %>" class="btn btn-warning btn-small">Delete</a></td>
+    					</tr>
+    					<% }) %>
+    				</table>
+                <% }) %>
 			</div>
 		</div>
 		<script type="text/javascript">

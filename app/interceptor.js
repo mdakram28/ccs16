@@ -3,30 +3,23 @@ var Ques = require("./models/ques");
 var data;
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
+	//console.log(req.user);
 	if (!req.isAuthenticated())
-		return res.redirect('/login');
+		return res.redirect('/');
 	if(!req.user.detailsFilled){
 		return res.redirect('/details');
 	}
 	var userInfo = {
-		username : req.user.profile.username,
-		regNo : req.user.profile.regNo,
-		mobNo : req.user.profile.mobNo,
-		fullName : req.user.profile.fullName,
-		authType : req.user.authType
+		regNo : req.user.details.regNo,
+		mobNo : req.user.details.mobNo,
+		fullName : req.user.details.fullName,
+		email : req.user.google.email,
+		password : req.user.google.token
 	}
-	if(userInfo.authType=="local"){
-		userInfo.email = req.user.local.email;
-		userInfo.password = req.user.local.password;
-	}else if(userInfo.authType=="facebook"){
-		userInfo.email = req.user.facebook.email;
-		userInfo.password = req.user.facebook.token;
-	}else if(userInfo.authType=="google"){
-		userInfo.email = req.user.google.email;
-		userInfo.password = req.user.google.token;
-	}
+
 	req.userInfo = userInfo;
 	res.locals.userInfo = userInfo;
+	res.locals.user = req.user;
 	next();
 }
 
@@ -47,14 +40,13 @@ function isAdmin(req,res,next){
 }
 
 var admins = [
-	"MDAKRAM28@GMAIL.COM",
-	"ACCOUNTS@VULN.IN",
-	"SARDANAAMAN@GMAIL.COM"
+	"15BIT0166"
 	];
 function allRequests(req,res,next){
+	res.locals.categories = Ques.schema.path("category").enumValues;
 	res.locals.isAuthenticated = req.isAuthenticated();
-	if(res.locals.isAuthenticated && req.user.authType=="local"){
-		req.isAdmin = res.locals.isAdmin = (admins.indexOf(req.user.local.email.toUpperCase())>=0);
+	if(res.locals.isAuthenticated){
+		req.isAdmin = res.locals.isAdmin = (admins.indexOf(req.user.details.regNo.toUpperCase())>=0);
 	}else{
 		req.isAdmin = res.locals.isAdmin = false;
 	}
@@ -68,7 +60,7 @@ function dbStart(){
 		data.totalQuestions = quess.length;
 		data.questions = quess;
 	});
-	refreshLeaderboard();
+	//refreshLeaderboard();
 }
 
 function refreshLeaderboard(){
