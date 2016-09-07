@@ -5,10 +5,14 @@ var inter = require("./interceptor");
 module.exports = function(app, passport, data) {
 
 	app.get('/',function(req, res) {
-		res.render('index.ejs',{message:req.flash("indexMessage") || req.flash("loginMessage")});
+		if(req.isAuthenticated()){
+			return res.redirect('/profile');
+		}
+		return res.render('index.ejs',{message:req.flash("loginMessage")});
 	});
 
 	app.get('/profile',inter.isLoggedIn, function(req, res) {
+		res.locals.active = "profile";
 		if(req.isAdmin){
 			User.find({},function(err, users) {
 				res.locals.users = users;
@@ -20,6 +24,7 @@ module.exports = function(app, passport, data) {
 	});
 
 	app.get('/details', function(req,res){
+		res.locals.active = "details";
 		if(!req.isAuthenticated()){
 			return res.redirect('/');
 		}

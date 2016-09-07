@@ -1,49 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
     <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
-    <title>CSIVIT - CCS16</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
-    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" href="/Style/main.css" type="text/css">
-    <link rel="stylesheet" href="/Style/common.css" type="text/css">
-    <style>
-    a{
-        font-size: 15px;
-    }
-    </style>
+	<title>CCS16 - questions edit</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+	<style>
+	/*body 		{ padding-top:80px; }*/
+	.alert.alert-success{
+		position: absolute;
+		z-index: 9999;
+	}
+	</style>
 </head>
 <body>
-
-    <%- include sidebar %>
-    <nav class="navbar" role="navigation">
-        <div class="navbar-header">
-            </button> <a class="navbar-brand" href="#"><h3>CSIVIT - CCS16</h3></a>
-        </div>
-        <span class="pull-right" id="userDetails">
-            <p class="text-primary">
-                <strong><%= user.details.regNo %></strong>
-                - <%= user.details.fullName %>
-            </p>
-        </span>
-    </nav>
-
-    <div class="wrapper container-fluid">
-        <% if (message.length > 0) { %>
+	<div class="container-fluid">
+		<% if (message.length > 0) { %>
 			<div id="message" class="alert alert-success text-center" style="margin-left:50px"><%= message %></div>
-		<% } %>
-        <div class="row">
-            <div class="col-sm-4" id="edit">
+			<% } %>
+            <h4><a href="/profile">&lt;-- Profile</a></h4>
+			<div class="col-sm-4" id="edit">
 
-				<h2>Add new Question</h2>
+				<h1><span class="fa fa-sign-in"></span> Add new Question</h1>
 
 				<!-- LOGIN FORM -->
-				<form action="/admin/addQuestion" method="post" class="well">
+				<form action="/admin/addQuestion" method="post">
 
 					<div class="form-group">
 						<label>Category</label>
@@ -67,17 +48,19 @@
 					</div>
 					<div class="form-group">
 						<label>Answer</label>
-						<textarea class="form-control" name="answer"></textarea>
+						<input type="text"  class="form-control" name="answer">
 					</div>
 					<button type="submit" class="btn btn-warning btn-lg">Add</button>
 				</form>
+
+				<hr>
 
 			</div>
 
 			<div class="col-sm-8">
                 <% categories.forEach(function(cat){ %>
-                    <h2><%= cat.toUpperCase() %></h2>
-                    <table style="width:100%" border="2px" class="well">
+                    <h3><%= cat.toUpperCase() %></h3>
+                    <table style="width:100%" border="2px">
     					<tr>
     						<th>Ques. No.</th>
     						<th>Question</th>
@@ -97,12 +80,11 @@
     				</table>
                 <% }) %>
 			</div>
-        </div>
-    </div>
-    <script type="text/javascript">
-    setTimeout(function(){
-        document.getElementById("message").remove();
-    },5000);
-    </script>
-</body>
-</html>
+		</div>
+		<script type="text/javascript">
+		setTimeout(function(){
+			document.getElementById("message").remove();
+		},5000);
+		</script>
+	</body>
+	</html>

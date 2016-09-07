@@ -1,78 +1,63 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>CCS16 - Profile</title>
-	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<link rel="stylesheet" href="Style/main.css" type="text/css">
-<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-  <script src="/JavaScript/angular.min.js"></script>
     <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
-	<style>
-		/*body 		{ padding-top:80px; word-wrap:break-word; }*/
-	</style>
-	<script>
-		var app = angular.module('riddlerApp',[]);
-		app.controller('riddlerController',function($scope,$http,$httpParamSerializerJQLike){
-			http = $http;
-			$(inviteForm).submit(invite);
-		});
+    <title>CSIVIT - CCS16</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/bower_components/toastr/toastr.min.js"></script>
+    <link rel="stylesheet" href="/bower_components/toastr/toastr.min.css">
 
-	</script>
+    <link rel="stylesheet" href="/Style/main.css" type="text/css">
+    <link rel="stylesheet" href="/Style/common.css" type="text/css">
 </head>
 <body ng-app="riddlerApp" ng-controller="riddlerController">
-<div class="container">
-	<div class="text-center">
-		<h2 style="color:#717171; padding-top:30px">CSIVIT - CCS16</h2>
-	</div>
 
-	<div class="container page-header text-left">
-		<h1>Here is your Profile.</h1>
+    <%- include sidebar %>
+    <nav class="navbar" role="navigation">
+        <div class="navbar-header">
+            </button> <a class="navbar-brand" href="#"><h3>CSIVIT - CCS16</h3></a>
+        </div>
+        <span class="pull-right" id="userDetails">
+            <p class="text-primary">
+                <strong><%= user.details.regNo %></strong>
+                - <%= user.details.fullName %>
+            </p>
+        </span>
+    </nav>
 
+    <div class="wrapper container-fluid">
 
-		<a href="/logout" class="submit-profile" style="padding-right:20px">Logout</a>
-		<a href="/details" class="submit-profile" style="padding-right:20px">Update Details</a>
+    	<div class="row">
+    		<!-- LOCAL INFORMATION -->
+    		<div class="col-sm-6">
+    			<div class="container profile-details">
+    				<p style="color: #fff; font-size:20px">
+    					<strong style="color: #ee202e; font-size:20px">email</strong>: <%= userInfo.email %><br>
+    					<strong style="color: #ee202e">Reg. No.</strong>: <%= userInfo.regNo %><br>
+    					<strong style="color: #ee202e">Name</strong>: <%= userInfo.fullName %><br>
+    					<strong style="color: #ee202e">mobNo</strong>: <%= userInfo.mobNo %><br>
+    				</p>
 
-		<% if(isAdmin){ %>
-		<a href="/admin/editQuestions" target="new" class="submit-profile pull-right" style="padding-right:20px">Edit Questions</a>
-		<a href="/admin/users" target="new" class="submit-profile pull-right" style="padding-right:20px">Users : <%= users.length %></a>
-		<% } %>
-	</div>
-
-	<div class="row">
-		<!-- LOCAL INFORMATION -->
-		<div class="col-sm-6">
-			<div class="container profile-details">
-				<p style="color: #fff; font-size:20px">
-					<strong style="color: #ee202e; font-size:20px">email</strong>: <%= userInfo.email %><br>
-					<strong style="color: #ee202e">Reg. No.</strong>: <%= userInfo.regNo %><br>
-					<strong style="color: #ee202e">Name</strong>: <%= userInfo.fullName %><br>
-					<strong style="color: #ee202e">mobNo</strong>: <%= userInfo.mobNo %><br>
-				</p>
-
-			</div>
-		</div>
-		<div class="col-sm-6" style="color: #ee202e">
-		<% if(isAdmin){ %>
-			Users : <br/>
-			<div class="usersList" style="color: #fff">
-				<% users.forEach(function(u){ %>
-					<a style="font-size: 17px;color: white;" href="/admin/user/<%= u._id.toString() %>"><%= u.details.regNo %></a> |
-				<% }) %>
-			</div>
-			<hr/>
-			<a href="/admin/submissions" target="new" class="submit-profile">Review Submissions</a>
-			<% } %>
-		</div>
-	</div>
-
-	<div class="row">
-		<h2>Take the test !</h2>
-		<a href="/test/technical"><h3>Technical</h3></a>
-		<a href="/test/management"><h3>Management</h3></a>
-		<a href="/test/design"><h3>Design</h3></a>
-	</div>
-
-</div>
+    			</div>
+    		</div>
+    		<div class="col-sm-6" style="color: #ee202e">
+    		<% if(isAdmin){ %>
+    			Users : <br/>
+    			<div class="usersList" style="color: #fff">
+    				<% users.forEach(function(u){ %>
+    					<a style="font-size: 17px;color: white;" href="/admin/user/<%= u._id.toString() %>"><%= u.details.regNo %></a> |
+    				<% }) %>
+    			</div>
+    			<hr/>
+    			<a href="/admin/submissions" target="new" class="submit-profile">Review Submissions</a>
+    			<% } %>
+    		</div>
+    	</div>
+    </div>
 </body>
 </html>

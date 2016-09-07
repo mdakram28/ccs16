@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head><link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
+	<title>CCS16 - Details</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	  <link rel="stylesheet" href="Style/main.css" type="text/css">
+	<style>
+		/*body 		{ padding-top:80px; }*/
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="text-center">
+
+		<h2 style="color:#717171; padding-top:30px"><%= 25-(new Date()).getDate() %> DAYS TO GO</h2>
+	</div>
+<div class="col-sm-6 col-sm-offset-3" style="padding-top: 40px">
+
+	<h2 style="margin-left:5px"> Hi! Edit your Profile information</h2>
+
+	<% if (message.length > 0) { %>
+		<div class="alert alert-danger"><%= message %></div>
+	<% } %>
+
+	<!-- LOGIN FORM -->
+	<form action="/details" method="post">
+		<small><p class="text-info"></p></small>
+		<div class="form-group">
+
+			<input type="text" placeholder="Registration Number(optional)" value="<%= user.details.regNo||"" %>" name="regNo">
+		</div>
+		<div class="form-group">
+			<input type="text" style="text-transform:none" placeholder="Full Name" value="<%= user.details.fullName||"" %>" name="fullName">
+		</div>
+		<div class="form-group">
+			<input type="text" placeholder="Mobile Number" value="<%= user.details.mobNo||"" %>" name="mobNo">
+		</div>
+		<div class="form-group">
+			<input type="text" placeholder="Experience" value="<%= user.details.experience||"" %>" name="experience">
+		</div>
+		<div class="form-group">
+			<textarea placeholder="Projects" name="projects"><%= user.details.projects||"" %></textarea>
+		</div>
+		<span style:"padding: 40px"></span>
+		<a style="float:left" type="submit" class="submit-profile" href="/profile">cancel</a>
+		<button style="float:right" type="submit" class="submit-profile">Update my profile</button>
+	</form>
+
+
+</div>
+</div>
+</body>
+</html>

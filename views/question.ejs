@@ -1,114 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
-  <title>CSIVIT - CCS16</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/JavaScript/angular.min.js"></script>
-  <script src="/JavaScript/angular-sanitize.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-  <script>
+    <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
+    <title>CSIVIT - CCS16</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/JavaScript/angular.min.js"></script>
+    <script src="/JavaScript/angular-sanitize.min.js"></script>
+    <script src="/bower_components/toastr/toastr.min.js"></script>
+    <link rel="stylesheet" href="/bower_components/toastr/toastr.min.css">
+
+    <link rel="stylesheet" href="/Style/main.css" type="text/css">
+    <link rel="stylesheet" href="/Style/common.css" type="text/css">
+    <script>
     var category = "<%= category %>";
-  </script>
-<script src="/socket.io/socket.io.js"></script>
-  <script src="/JavaScript/game.js"></script>
-
-  <style>
-      *{
-          border-radius:0px !important;
-      }
-      body{
-          background-color:rgb(26, 26, 26);
-      }
-      #content{
-        padding-left: 16px;
-        padding-right: 16px;
-      }
-      #attemptForm #submit{
-        cursor:pointer;
-      }
-      #feedsColumn{
-        background-color:#fff;
-        height:500px;
-      }
-      #userDetails{
-        height: 50px;
-        padding: 15px 15px;
-        font-size: 15px;
-        line-height: 20px;
-      }
-
-      .option.selected{
-          background-color: lightGreen !important;
-      }
-
-      .option{
-          cursor: pointer;
-      }
-
-      .option:hover{
-          background-color: rgba(255, 255, 0, 0.5);
-      }
-  </style>
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/JavaScript/game.js"></script>
 </head>
 <body ng-app="riddlerApp" ng-controller="riddlerController">
-    <div class="container-fluid">
-    	<div class="row">
-    		<div class="col-md-12">
-    			<nav class="navbar navbar-inverse" role="navigation">
-    				<div class="navbar-header">
+    <%- include sidebar %>
+    <nav class="navbar" role="navigation">
+        <div class="navbar-header">
+            </button> <a class="navbar-brand" href="#"><h3>CSIVIT - CCS16</h3></a>
+        </div>
+        <span class="pull-right" id="userDetails">
+            <p class="text-primary">
+                <strong><%= user.details.regNo %></strong>
+                - <%= user.details.fullName %>
+            </p>
+        </span>
+    </nav>
 
-    					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-    						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-    					</button> <a class="navbar-brand" href="#">CSIVIT - CCS16</a>
-    				</div>
-    					<span class="pull-right" id="userDetails">
-    					  <p class="text-primary">
-                              <a class="btn btn-primary btn-sm" style="position: relative;top: -5px;" href="/profile">PROFILE</a>
-    					    <strong><%= user.details.regNo %></strong>
-    					    - <%= user.details.fullName %>
-    					   </p>
-    					 </span>
-    			</nav>
-                <div class="row" id="content">
-                    <button class="btn btn-sm" ng-repeat="q in ques" ng-click="changeQuestion($index)" ng-class="{true : 'btn-primary', false : 'btn-default'}[qno==$index]">{{q.qno}}</button>
+    <div class="wrapper container-fluid">
+        <div class="row" id="pages">
+            <center>
+                <button class="btn btn-lg" ng-disabled="qno==0" ng-click="changeQuestion(qno-1)">PREV</button>
+                <button class="btn btn-lg {{(ques[qno].attempt!="" && ques[qno].attempt)?'answered':'' }}" ng-repeat="q in ques" ng-click="changeQuestion($index)" ng-class="{true : 'btn-primary', false : 'btn-default'}[qno==$index]">{{q.qno}}</button>
+                <button class="btn btn-lg" ng-disabled="qno==ques.length-1" ng-click="changeQuestion(qno+1)">NEXT</button>
+            </center>
+        </div>
+        <div class="row container well" id="content">
+            <div class="progress" style="position: relative;top: -20px;left: -20px;width: 100%;width: 103.6%;">
+                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{solved*100/ques.length}}%;background-color:#90000a">
+                    <span class="sr-only">40% Complete (success)</span>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="pull-left">
+                            Ques : <h2 style="display:inline-block">{{ques[qno].qno}}</h2>
+                        </div>
+                        <div class="pull-right">
+                            <h2>{{category.toUpperCase()}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <pre id="ques" ng-bind-html="ques[qno].ques | trust"></pre>
+                <h5 ng-hide="ques[qno].choices.length==0"><b>OPTIONS</b></h5>
+                <div id="options">
+                    <span ng-repeat="option in ques[qno].choices">
+                        <pre class="option" ng-class="{true:'selected',false:''}[option==ques[qno].attempt]" ng-bind-html="option | trust" ng-click="selectOption($index)"></pre>
+                    </span>
                 </div>
 
-    			<div class="row" id="content">
-    				<div class="col-md-12 well">
-                        <div class="row">
-                            <div class="pull-left">
-                                Ques : <h2 style="display:inline-block">{{ques[qno].qno}}</h2>
-                            </div>
-                            <div class="pull-right">
-                                <h2>{{category.toUpperCase()}}</h2>
-                            </div>
-                        </div>
-    				  <pre id="ques" ng-bind-html="ques[qno].ques | trust"></pre>
-                      <h5 ng-hide="ques[qno].choices.length==0"><b>OPTIONS</b></h5>
-      				  <div id="options">
-                          <span ng-repeat="option in ques[qno].choices">
-                              <pre class="option" ng-class="{true:'selected',false:''}[option==ques[qno].attempt]" ng-bind-html="option | trust" ng-click="selectOption($index)"></pre>
-                          </span>
-                      </div>
-
-        			  <form id="answerForm">
-        			<div class="input-group" id="attemptForm">
-        			    <input id="answerBox" type="text" class="form-control" placeholder="Enter your answer here" aria-describedby="basic-input" ng-model="ques[qno].attempt">
-        			    <span id="submit" class="input-group-addon" id="basic-input2"><i class="fa fa-arrow-right"></i></span>
-        			</div>
-        			</form>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
+                <form id="answerForm">
+                    <div class="input-group" id="attemptForm" style="min-height:75px">
+                        <textarea style="min-height:75px" ng-show="ques[qno].choices.length==0" id="answerBox" type="text" class="form-control" placeholder="Enter your answer here" aria-describedby="basic-input" ng-model="ques[qno].attempt"></textarea>
+                        <span id="submit" class="input-group-addon" id="basic-input2"><i class="fa fa-arrow-right"></i></span>
+                    </div>
+                </form>
+            </div>
+        </div><br/>
+        <div class="row container" id="content">
+            <div class="pull-right">
+                <button style="width:100%" class="btn btn-danger btn-lg" onClick="endTest()">End and submit test</button>
+            </div>
+        </div>
     </div>
-
 </body>
 </html>

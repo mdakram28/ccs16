@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
+    <title>CSIVIT - CCS16</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/Style/main.css" type="text/css">
+    <link rel="stylesheet" href="/Style/common.css" type="text/css">
+</head>
+<body>
+
+    <%- include sidebar %>
+    <nav class="navbar" role="navigation">
+        <div class="navbar-header">
+            </button> <a class="navbar-brand" href="#"><h3>CSIVIT - CCS16</h3></a>
+        </div>
+        <span class="pull-right" id="userDetails">
+            <p class="text-primary">
+                <strong><%= user.details.regNo %></strong>
+                - <%= user.details.fullName %>
+            </p>
+        </span>
+    </nav>
+<style>
+    .link {
+        cursor: pointer;
+    }
+    .link:hover{
+        background-color: lightGrey;
+    }
+</style>
+    <div class="wrapper container-fluid">
+        <div class="row">
+            <table width="100%" border="2px" class="well">
+                <tr>
+                    <th>Reg. No</th>
+                    <th>Name</th>
+                    <th>Submitted</th>
+                    <th>Total answered</th>
+                </tr>
+                <% users.forEach(function(u){ %>
+                        <tr class="link" onClick="location.replace('/admin/user/<%= u._id %>')">
+                            <td><%= u.regNo %></td>
+                            <td><%= u.name %></td>
+                            <td><%= u.submitted.join(" , ") %></td>
+                            <td><%= u.totalAnswered %></td>
+                        </tr>
+                <% }) %>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

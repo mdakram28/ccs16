@@ -13,6 +13,8 @@ var userSchema = mongoose.Schema({
     },
     detailsFilled : { type: Boolean, default: false },
     completed : {type: Boolean, default : false},
+    giving : String,
+    submitted : {type : Array, default : []},
     google           : {
         id           : String,
         token        : String,

@@ -7,7 +7,7 @@ var quesSchema = mongoose.Schema({
   ques:String,
   choices:{type: Array, default: []},
   answer:String,
-  category: {type: String , enum: ['technical','management','design']},
+  category: {type: String , enum: ["logical","webdev","security","design"]},
   attempt : String
 });
 

@@ -1,6 +1,9 @@
 var User = require("./models/user");
 var Ques = require("./models/ques");
 var data;
+
+var startTime = new Date("Wed Sep 07 2016 06:00:21 GMT+0530 (India Standard Time)").getTime();
+var endTime = new Date("Wed Sep 07 2016 07:00:21 GMT+0530 (India Standard Time)").getTime();
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
 	//console.log(req.user);
@@ -51,6 +54,16 @@ function allRequests(req,res,next){
 		req.isAdmin = res.locals.isAdmin = false;
 	}
 	req.data = data;
+	res.locals.category = '';
+	res.locals.active = '';
+	res.locals.categoryName = {
+	    webdev : "Web Development",
+	    logical : "Logical",
+	    security : "Security",
+	    design : "Design"
+	};
+	res.locals.startTime = startTime;
+	res.locals.endTime = endTime;
 	next();
 }
 

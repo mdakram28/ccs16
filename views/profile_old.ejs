@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+	<title>CCS16 - Profile</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="Style/main.css" type="text/css">
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="/JavaScript/angular.min.js"></script>
+    <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/ >
+	<script>
+		var app = angular.module('riddlerApp',[]);
+		app.controller('riddlerController',function($scope,$http,$httpParamSerializerJQLike){
+			http = $http;
+			$(inviteForm).submit(invite);
+		});
+
+	</script>
+</head>
+<body ng-app="riddlerApp" ng-controller="riddlerController">
+<div class="container">
+	<div class="text-center">
+		<h2 style="color:#717171; padding-top:30px">CSIVIT - CCS16</h2>
+	</div>
+
+	
+
+	<div class="row">
+		<center>
+			<h1>Take the test !</h1>
+			<a href="/test/technical" class="domain"><h3>Technical</h3></a>
+			<a href="/test/management" class="domain"><h3>Management</h3></a>
+			<a href="/test/design" class="domain"><h3>Design</h3></a>
+		</center>
+	</div>
+	<style>
+	.domain{
+		display: inline-block;
+		padding-left: 20px;
+		padding-right: 20px;
+		font-size: 50px;
+	}
+	</style>
+</div>
+</body>
+</html>

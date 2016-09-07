@@ -1,0 +1,45 @@
+
+<div id="progress">
+</div>
+<script>
+var p = $("#progress")
+var startDate = <%= startTime %>;
+var endDate = <%= endTime %>;
+var duration = endDate-startDate;
+setInterval(function(){
+    var currDate = new Date().getTime();
+    var prog = (currDate-startDate)*100/duration;
+    p.css("width",prog+"%");
+},1000);
+</script>
+
+
+<div class="sidebar">
+    <div class="content well">
+        <ul>
+            <li <%- active=='profile'?'class="active"':'' %>><a href="/profile">Profile</a></li>
+            <li <%- active=='details'?'class="active"':'' %>><a href="/details">Update Details</a></li>
+            <li <%- active=='about'?'class="active"':'' %>><a href="/about">About Us</a></li>
+            <li <%- active=='logout'?'class="active"':'' %>><a href="/logout">Logout</a></li>
+            <% if(isAdmin){ %>
+                <h2>&nbsp;ADMIN</h2>
+                <li <%- active=='submissions'?'class="active"':'' %>><a href="/admin/submissions">Review</a></li>
+                <li <%- active=='editQuestions'?'class="active"':'' %>><a href="/admin/editQuestions">Edit Questions</a></li>
+                <li <%- active=='users'?'class="active"':'' %>><a href="/admin/users">Users</a></li>
+            <% } %>
+            <h2>&nbsp;TESTS</h2>
+            <% categories.forEach(function(cat){ %>
+                <li class="<%- category.toLowerCase()==cat?'active':'' %>">
+                    <a href="/test/<%= cat %>"><%= categoryName[cat] %></a>
+                    <% if(user.submitted.indexOf(cat)>=0){ %>
+                        <small class="badge pull-right bg-green">submitted</small>
+                    <% } %>
+                    <% if(user.giving==cat){ %>
+                        <small class="badge pull-right bg-blue">active</small>
+                    <% } %>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+    <div class="toggle" onClick="$('body').toggleClass('collapsed')"><center class="arrow">&lt;<center></div>
+</div>

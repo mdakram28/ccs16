@@ -1,0 +1,173 @@
+*{
+    border-radius:0px !important;
+}
+body{
+    background-color:rgb(26, 26, 26);
+}
+#content{
+    margin : 0px auto;
+}
+#attemptForm #submit{
+  cursor:pointer;
+}
+#feedsColumn{
+  background-color:#fff;
+  height:500px;
+}
+#userDetails{
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.option.selected{
+    background-color: lightGreen !important;
+}
+
+.option{
+    cursor: pointer;
+}
+
+.option:hover{
+    background-color: rgba(255, 255, 0, 0.5);
+}
+
+#pages{
+    margin-bottom: 5px;
+}
+
+.btn-primary{
+    background-color: #90000a !important;
+}
+
+.sidebar{
+    position: fixed;
+    top:100px;
+    left:0px;
+    height:100%;
+    display: block;
+    z-index: 100;
+    width: 350px;
+    transition: left 0.5s ease-in-out;
+}
+
+.wrapper{
+    margin-left: 300px;
+    transition: margin 0.5s ease-in-out;
+}
+
+body.collapsed .sidebar{
+    left: -300px;
+}
+body.collapsed .wrapper{
+    margin-left: 0px;
+}
+body.collapsed .sidebar > .toggle > .arrow{
+    transform: rotate(180deg);
+}
+body.collapsed .sidebar > .toggle{
+    padding-top: 4px;
+}
+
+.sidebar > .content{
+    width: 300px;
+    height:100%;
+    display: inline-block;
+    float: left;
+    border: none;
+    padding: 0px;
+}
+
+.sidebar > .toggle{
+    float: right;
+    width: 49px;
+    height: 49px;
+    display: inline-block;
+    background-color: #404040;
+    cursor: pointer;
+    font-size: 33px;
+    transition: padding-top 0.5s ease-in-out;
+}
+
+.sidebar > .toggle > .arrow{
+    transition: transform 0.5s ease-in-out;
+}
+
+.sidebar > .toggle:hover{
+    background-color: #808080;
+}
+
+.sidebar ul{
+    padding-left: 0px;
+}
+
+.sidebar ul > li{
+    width: 100%;
+    display: block;
+}
+
+.sidebar ul > li.locked{
+
+}
+
+.sidebar ul > li > a{
+    display: block;
+    height: 50px;
+    font-size: 20px;
+    border-bottom: 1px solid grey;
+    padding-top: 11px;
+    padding-left: 15px;
+    transition: none;
+}
+
+.sidebar ul > li > a:hover , .sidebar ul > li.active > a{
+    border-left: #90000a 5px solid;
+    padding-left: 10px;
+    color: currentColor;
+    background-color: #cecece;
+}
+
+.sidebar ul > li.locked > a:hover{
+    border-left: none;
+    padding-left: 15px;
+    color: currentColor;
+    background-color: white;
+}
+
+.badge{
+    top: -35px;
+    position: relative;
+    padding: 5px;
+    margin-right: 12px;
+    border-radius: 4px !important;
+}
+
+.bg-green{
+    background-color: lightgreen;
+}
+.bg-blue{
+    background-color: lightblue;
+}
+
+.answered{
+    background-color: lightgreeen !important;
+}
+
+#progress {
+  position: fixed;
+  z-index: 2147483647;
+  top: 0px;
+  left: 0px;
+  width: 0%;
+  height: 5px;
+  background: #0088CC;
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+  -moz-transition: width 500ms ease-out, opacity 400ms linear;
+  -ms-transition: width 500ms ease-out, opacity 400ms linear;
+  -o-transition: width 500ms ease-out, opacity 400ms linear;
+  -webkit-transition: width 500ms ease-out, opacity 400ms linear;
+  transition: width 500ms ease-out, opacity 400ms linear;
+}

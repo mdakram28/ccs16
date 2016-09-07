@@ -16,83 +16,65 @@
     <script src="JavaScript/jquery.countdown.js"></script>
     <script src="JavaScript/main.js"></script>
     <script src="JavaScript/canvas.js"></script>
+<style>
+.bg-image {
+  background-image: url('/images/bg_2.png');
+  background-size: cover;
+  display: block;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 1;
+}
 
+.content {
+  top: 10px;
+  left: 0;
+  position: fixed;
+  margin-left: 20px;
+  margin-right: 20px;
+  right: 0;
+  z-index: 2;
+  padding: 0 10px;
+}
+
+.loginButton{
+    border: 3px solid #EE202E;
+    background-color: transparent;
+    color: #EE202E;
+    font-size: 32px;
+    padding : 10px;
+    margin-top: 10px;
+    display: inline-block;
+    transition: 0.2s !important;
+}
+
+.loginButton:hover{
+    border-color: white;
+    background-color: black;
+}
+</style>
 </head>
 
 
 <body>
-	<% if (message.length > 0) { %>
-		<div class="alert alert-success"><center><%= message %></center></div>
-	<% } %>
+    <div class="bg-image"></div>
+    <div class="content">
+        <% if (message.length > 0) { %>
+            <div class="alert alert-success"><center><%= message %></center></div>
+            <% } %>
 
-    <div class="page-wrap">
-
-    <div class="container">
-    <div class="row">
-        <div class="col-md-12 col-lg-12 col-sm-12">
-        <img alt="?" class="question img-responsive center-block" src="media/question.png">
-        <h1 class="title text-center">CSIVIT CCS16</h1>
-        <div class="row text-center scroll-down">
-        <a href="#footer"><i class="fa fa-angle-down"></i></a>
-        </div>
-        </div>
+            <center>
+                <img alt="csivit" src="/images/typeface_csi.png">
+                <h1>You can surely thank us later <br/>
+                    for making your day better.</h1>
+                    <h2 style="background-color=#ffd1eb">Here is your chance to join us!<br/>
+                    <small>Core Committee Selection (For second years)</small></h2>
+                    <a href="/auth/google" class="loginButton">Login / Register</a>
+            </center>
     </div>
-    </div>
-    </div>
-
-    <footer class="foot" id="footer">
-        <div class="login container">
-        <div class="row">
-            <div class="column col-lg-12 col-md-12 col-sm-12 sol-xs-12 text-center" style="padding-top:20px">
-	        	<% if(!isAuthenticated){ %>
-	            <a id="loginButton">Login/Register</a>
-                <form action="/auth/adminLogin" method="post">
-                    <input type="submit" value="admin Login">
-                </form>
-	            <% }else{ %>
-	            <a id="logoutButton">Logout</a>
-	            <% } %>
-            </div>
-        </div>
-        </div>
-
-        <div class="container">
-        <div class="row" >
-            <div class="social_media column col-lg-12 col-md-12 col-sm-12 sol-xs-12 text-center">
-                <ul style="margin-left:-40px">
-                <li><a class="social_index" href="https://twitter.com/csivitu"><i class="fa fa-twitter"></i></a></li>
-                <li><a class="social_index" href="https://www.facebook.com/csivit/?ref=ts&fref=ts" ><i class="fa fa-facebook"></i></a></li>
-                <li><a class="social_index" href="https://plus.google.com/116420586753521131941"><i class="fa fa-google-plus" ></i></a></li>
-                </ul>
-            </div>
-        </div>
-        </div>
-    </footer>
-
-<script>
-
-$('a[href*="#"]:not([href="#"])').click(function() {
-    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-      if (target.length) {
-        $('html,body').animate({
-          scrollTop: target.offset().top
-        }, 1000);
-        return false;
-      }
-    }
-  });
-
- $("#loginButton").click(function(){
- 	window.location.pathname = "/auth/google";
- });
-
- $("#logoutButton").click(function(){
- 	window.location.pathname = "/logout";
- });
-
-</script>
-
 </body>
 </html>

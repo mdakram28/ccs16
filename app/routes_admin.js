@@ -5,12 +5,21 @@ var inter = require("./interceptor");
 module.exports = function(app, passport) {
 
 	app.get("/admin/users",inter.isLoggedIn,inter.isAdmin,function(req,res){
+		res.locals.active = "users";
 		User.find({},function(err,users){
-			var ret = [];
+			 var ret = [];
 			users.forEach(function(user){
-				ret.push(user);
+				ret.push({
+					_id : user._id.toString(),
+					regNo : user.details.regNo,
+					name : user.details.fullName,
+					submitted : user.submitted,
+					totalAnswered : Object.keys(user.attempts).length
+				});
 			});
-			res.json(ret);
+			console.log(ret);
+			res.locals.users = ret;
+			res.render("usersList");
 		});
 	});
 
@@ -47,6 +56,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/admin/submissions',inter.isLoggedIn,inter.isAdmin,function(req,res){
+		res.locals.active="submissions";
 		User.find({},function(err,users){
 			res.locals.users = users;
 			Ques.find({},function(err,quess){
@@ -71,7 +81,7 @@ module.exports = function(app, passport) {
 	});
 
 	///removeAccount
-	app.get('/admin/removeAccount',inter.isLoggedInAPI,function(req,res){
+	app.get('/admin/removeAccount',inter.isLoggedInAPI,inter.isAdmin,function(req,res){
 		var id = req.query.id;
 		if(!id){
 			return res.send(500);
@@ -94,6 +104,7 @@ module.exports = function(app, passport) {
 	});
 
   app.get("/admin/editQuestions",inter.isLoggedIn,inter.isAdmin,function(req,res){
+	  res.locals.active="editQuestions";
 		res.locals.message = req.flash("editQuestionsMessage");
     Ques.find({},function(err,quess){
       res.locals.quess = quess;
@@ -168,13 +179,17 @@ module.exports = function(app, passport) {
 
 		var ques = new Ques();
 		ques.qno = qno;
-		ques.ques = req.body.ques;
+		ques.ques = req.body.ques.trim("\n\r").split("\r").join("");
 		ques.answer = req.body.answer;
 		ques.choices = req.body.options.split("<opt>");
 		ques.category = req.body.category;
 
 		if(ques.choices.length==1 && ques.choices[0]==""){
 			ques.choices = [];
+		}
+		for(var i=0;i<ques.choices.length;i++){
+			console.log(ques.choices[i]);
+			ques.choices[i] = ques.choices[i].trim("\r\n").split("\r").join("");
 		}
 		ques.save(function(err){
 			if(err){
