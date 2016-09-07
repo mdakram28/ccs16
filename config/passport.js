@@ -1,25 +1,9 @@
 // load all the things we need
 var serverConfig = require("../serverFiles/config");
 var LocalStrategy = require('passport-local').Strategy;
-var FacebookStrategy = require('passport-facebook').Strategy;
-var TwitterStrategy = require('passport-twitter').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var randtoken = require('rand-token');
 
 var fs = require("fs");
-
-var vrfEmailFormat = fs.readFileSync("./config/verification_email_format.txt", 'utf8');
-
-var nodemailer = require('nodemailer');
-
-var mandrillTransport = require('nodemailer-mandrill-transport');
-
-var transport = nodemailer.createTransport(mandrillTransport({
-  auth: {
-    apiKey: 'VlebD23ANBQI0q6TzKdx2Q'
-  }
-}));
-
 // load up the user model
 var User = require('../app/models/user');
 

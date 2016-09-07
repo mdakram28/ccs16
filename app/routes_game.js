@@ -1,7 +1,6 @@
 var User = require("./models/user");
 var inter = require("./interceptor");
 var Ques = require("./models/ques");
-var jwt = require('jsonwebtoken');
 
 function random(lower,upper){
 	return lower+Math.floor(Math.random()*(upper-lower));
