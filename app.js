@@ -37,7 +37,7 @@ app.configure(function() {
 	app.set('json spaces', 4);
 
 	// required for passport
-	app.use(express.session({ secret: 'u4y5gbj0i987tcr54ewzx65' })); // session secret
+	app.use(express.session({ secret: '<REDACTED>' })); // session secret
 	app.use(passport.initialize());
 	app.use(passport.session()); // persistent login sessions
 	app.use(flash()); // use connect-flash for flash messages stored in session
